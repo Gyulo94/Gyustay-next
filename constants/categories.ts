@@ -1,6 +1,5 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
 import { BsSnow } from "react-icons/bs";
 import { FaSkiing } from "react-icons/fa";
 import {
@@ -15,8 +14,6 @@ import {
 import { IoDiamond } from "react-icons/io5";
 import { MdOutlineVilla } from "react-icons/md";
 import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
-import Container from "../container";
-import CategoryBox from "./category-box";
 
 export const categories = [
   {
@@ -90,29 +87,3 @@ export const categories = [
     description: "최고급 시설과 서비스를 제공하는 럭셔리 숙소",
   },
 ];
-
-export default function Categories() {
-  const params = useSearchParams();
-  const category = params.get("category");
-  const pathname = usePathname();
-
-  const isMainPage = pathname === "/";
-  if (!isMainPage) {
-    return null;
-  }
-
-  return (
-    <Container>
-      <div className="pt-4 flex flex-row items-center justify-between overflow-x-auto">
-        {categories.map((item) => (
-          <CategoryBox
-            key={item.label}
-            label={item.label}
-            selected={item.label === category}
-            icon={item.icon}
-          />
-        ))}
-      </div>
-    </Container>
-  );
-}
