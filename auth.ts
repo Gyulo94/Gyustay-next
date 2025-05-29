@@ -16,7 +16,7 @@ async function refreshToken(token: JWT): Promise<JWT> {
 
     console.log("refrershed");
 
-    const newRefreshToken = await response.data;
+    const newRefreshToken = await response.data.body;
 
     return {
       ...token,
@@ -61,7 +61,7 @@ export const config = {
           email,
           password,
         });
-        const user = await response.data;
+        const user = await response.data.body;
         return user;
       },
     }),
@@ -79,10 +79,10 @@ export const config = {
         };
 
         const response = await axios.post(
-          `${SERVER_URL}/auth/kakao-login`,
+          `${SERVER_URL}/auth/social-login`,
           user
         );
-        const result = await response.data;
+        const result = await response.data.body;
         return result;
       },
     }),
@@ -100,10 +100,10 @@ export const config = {
         };
 
         const response = await axios.post(
-          `${SERVER_URL}/auth/google-login`,
+          `${SERVER_URL}/auth/social-login`,
           user
         );
-        const result = await response.data;
+        const result = await response.data.body;
         result.id = user.id;
         return result;
       },
