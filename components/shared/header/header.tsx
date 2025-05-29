@@ -1,4 +1,5 @@
 import Container from "../container";
+import Categories from "./categories";
 import Logo from "./logo";
 import Search from "./search";
 import UserMenu from "./user-menu";
@@ -15,6 +16,7 @@ export default function Header() {
           </div>
         </Container>
       </div>
+      <Categories />
     </header>
   );
 }
