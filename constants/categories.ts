@@ -1,89 +1,99 @@
 "use client";
 
-import { BsSnow } from "react-icons/bs";
-import { FaSkiing } from "react-icons/fa";
+import { AiOutlineStar } from "react-icons/ai";
+import { BiSolidTree, BiWater } from "react-icons/bi";
+import { FaHouseUser, FaUmbrellaBeach } from "react-icons/fa";
 import {
   GiBarn,
-  GiBoatFishing,
-  GiCactus,
+  GiCampingTent,
   GiCaveEntrance,
-  GiForestCamp,
-  GiIsland,
-  GiWindmill,
+  GiHolyOak,
+  GiSkier,
+  GiStarKey,
 } from "react-icons/gi";
-import { IoDiamond } from "react-icons/io5";
-import { MdOutlineVilla } from "react-icons/md";
-import { TbBeach, TbMountain, TbPool } from "react-icons/tb";
+import { IoPartlySunnyOutline } from "react-icons/io5";
+import { MdOutlineBedroomChild, MdOutlineSurfing } from "react-icons/md";
+import { TbMoodKid, TbSwimming } from "react-icons/tb";
 
 export const categories = [
   {
-    label: "해변",
-    icon: TbBeach,
-    description: "바다와 모래사장이 있는 아름다운 해변이 있는 곳",
+    id: "ae727717-9ef0-4fac-a975-a054fca9f332",
+    label: "전망좋은",
+    icon: IoPartlySunnyOutline,
   },
   {
-    label: "풍차",
-    icon: GiWindmill,
-    description: "로맨틱하고 이국적인 풍차가 있는 곳",
+    id: "92562245-ae62-434c-96a5-1cd04a888d09",
+    label: "자연",
+    icon: GiHolyOak,
   },
   {
-    label: "모던",
-    icon: MdOutlineVilla,
-    description: "현대적이고 세련된 빌라가 있는 곳",
-  },
-  {
-    label: "시골",
-    icon: TbMountain,
-    description: "조용하고 평화로운 시골",
-  },
-  {
-    label: "수영",
-    icon: TbPool,
-    description: "수영장이 있는 멋진 숙소",
-  },
-  {
-    label: "섬",
-    icon: GiIsland,
-    description: "아름다운 섬에서의 휴식과 탐험할 수 있는 곳",
-  },
-  {
-    label: "호수",
-    icon: GiBoatFishing,
-    description: "호수 근처에서의 낚시와 수상 스포츠를 즐길 수 있는 곳",
-  },
-  {
-    label: "스키",
-    icon: FaSkiing,
-    description: "눈 덮인 산에서의 스키와 스노보드를 즐길 수 있는 곳",
-  },
-  {
-    label: "캠핑",
-    icon: GiForestCamp,
-    description: "자연 속에서의 캠핑과 야외 활동을 즐길 수 있는 곳",
-  },
-  {
-    label: "북극",
-    icon: BsSnow,
-    description: "눈 덮인 북극 지역에서의 독특한 경험을 제공하는 곳",
-  },
-  {
+    id: "e296b521-592c-4efd-b9de-83bfd05c8d9a",
     label: "동굴",
     icon: GiCaveEntrance,
-    description: "신비로운 동굴 탐험을 할 수 있는 곳",
   },
   {
-    label: "사막",
-    icon: GiCactus,
-    description: "광활한 사막에서의 모험과 탐험을 즐길 수 있는 곳",
+    id: "c73547d3-b3ac-46c4-854a-96de684745f6",
+    label: "캠핑장",
+    icon: GiCampingTent,
   },
   {
-    label: "헛간",
+    id: "976935bc-b669-46ea-891f-540b2f698ffc",
+    label: "방",
+    icon: MdOutlineBedroomChild,
+  },
+  {
+    id: "b8572058-1090-403c-99b8-75db89731d75",
+    label: "한옥",
+    icon: FaHouseUser,
+  },
+  {
+    id: "aebb81ab-75ee-404e-9a9d-e572ced3650b",
+    label: "해변",
+    icon: FaUmbrellaBeach,
+  },
+  {
+    id: "b45a3343-369c-422a-86d0-dcaf5e19b1de",
+    label: "국립공원",
+    icon: BiSolidTree,
+  },
+  {
+    id: "3ee83f18-62b2-4259-a9b7-81cdf706cdc2",
+    label: "인기",
+    icon: AiOutlineStar,
+  },
+  {
+    id: "65c163ee-e050-437f-8b89-12bfd293770c",
+    label: "수영장",
+    icon: TbSwimming,
+  },
+  {
+    id: "76d51cc6-fdad-42d6-b02d-ee41fb31ddf9",
+    label: "농장",
     icon: GiBarn,
-    description: "전통적인 농장 스타일의 헛간에서의 숙박 경험을 제공하는 곳",
   },
   {
-    label: "고급",
-    icon: IoDiamond,
-    description: "최고급 시설과 서비스를 제공하는 럭셔리 숙소",
+    id: "0d18f052-bf4f-4ea7-b74f-514592a03091",
+    label: "스키",
+    icon: GiSkier,
+  },
+  {
+    id: "1c56d6c3-042d-4be2-ad00-6322fb492b74",
+    label: "호수",
+    icon: BiWater,
+  },
+  {
+    id: "64f59963-f33b-4fd1-93ed-29916141a6bc",
+    label: "키즈",
+    icon: TbMoodKid,
+  },
+  {
+    id: "00c5f54f-54bd-478a-8658-452b7a7cb2f0",
+    label: "신규",
+    icon: GiStarKey,
+  },
+  {
+    id: "3993db1a-2c36-485c-8c2e-aed2e9f7c9a0",
+    label: "서핑",
+    icon: MdOutlineSurfing,
   },
 ];

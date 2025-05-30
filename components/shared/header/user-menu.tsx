@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useOpenRentStore } from "@/hooks/store/open.store";
+
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -15,7 +15,6 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { LuUserRound } from "react-icons/lu";
 
 export default function UserMenu({ session }: { session: Session | null }) {
-  const { onOpen } = useOpenRentStore();
   const publicRoute = [
     {
       label: "로그인",
@@ -53,10 +52,7 @@ export default function UserMenu({ session }: { session: Session | null }) {
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div
-          onClick={onOpen}
-          className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
-        >
+        <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
           호스팅 하기
         </div>
         <DropdownMenu>
