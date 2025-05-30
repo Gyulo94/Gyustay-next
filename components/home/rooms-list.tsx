@@ -16,11 +16,14 @@ export default function RoomsList({ category }: Props) {
   const {
     data: rooms,
     isFetching,
+    isError,
     isLoading,
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
   } = useFindRoomsAll({ category });
+
+  if (isError) throw new Error("숙소 목록을 불러오는 중 오류가 발생했습니다.");
 
   useEffect(() => {
     // let timerId: NodeJS.Timeout | undefined;
