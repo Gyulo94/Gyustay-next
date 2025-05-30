@@ -1,8 +1,10 @@
 "use client";
 import { useFindRoomsAll } from "@/hooks/query/use-room";
 import { RoomType } from "@/type/room.type";
+import { useRouter } from "next/navigation";
 import { Fragment, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
+import { KakaoMapButton } from "../map/map";
 import { Loader, RoomsSkeleton } from "../shared/loader";
 import RoomItem from "./room-item";
 
@@ -12,7 +14,7 @@ interface Props {
 
 export default function RoomsList({ category }: Props) {
   const { ref, inView } = useInView();
-
+  const router = useRouter();
   const {
     data: rooms,
     isFetching,
@@ -48,8 +50,9 @@ export default function RoomsList({ category }: Props) {
           </Fragment>
         ))}
       </div>
+      <KakaoMapButton onClick={() => router.push("/map")} />
       {(isFetching || isFetchingNextPage || hasNextPage) && <Loader />}
-      <div className="w-full touch-none h-10 mb-10 bg-primary" ref={ref} />
+      <div className="w-full touch-none h-10 mb-10" ref={ref} />
     </div>
   );
 }

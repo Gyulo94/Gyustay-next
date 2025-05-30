@@ -19,3 +19,8 @@ export async function findRoomsAll({
   });
   return response.data.body;
 }
+
+export async function findRoomsInMap() {
+  const response = await axios.get(`${SERVER_URL}/room/map`);
+  return response.data.body.data;
+}

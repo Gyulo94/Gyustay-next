@@ -125,4 +125,7 @@
   body {
     @apply bg-background text-foreground;
   }
+  .custom_overlay {
+    @apply bg-primary rounded-full px-2 py-1 text-xs font-semibold text-white shadow cursor-pointer hover:shadow-lg hover:font-bold;
+  }
 }
