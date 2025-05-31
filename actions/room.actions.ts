@@ -24,3 +24,16 @@ export async function findRoomsInMap() {
   const response = await axios.get(`${SERVER_URL}/room/map`);
   return response.data.body.data;
 }
+
+export async function findRoomById(id?: string) {
+  try {
+    const response = await axios.get(`${SERVER_URL}/room/${id}`);
+    return response.data.body;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.message;
+      throw new Error(message);
+    }
+    throw error;
+  }
+}

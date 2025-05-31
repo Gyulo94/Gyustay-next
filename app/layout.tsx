@@ -36,8 +36,8 @@ export default async function RootLayout({
           <QueryProvider>
             <OpenProvider />
             {children}
+            <Toaster />
           </QueryProvider>
-          <Toaster />
         </SessionProvider>
       </body>
     </html>

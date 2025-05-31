@@ -1,4 +1,8 @@
-import { findRoomsAll, findRoomsInMap } from "@/actions/room.actions";
+import {
+  findRoomById,
+  findRoomsAll,
+  findRoomsInMap,
+} from "@/actions/room.actions";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
 export const useFindRoomsAll = ({ category }: { category?: string }) => {
@@ -16,6 +20,14 @@ export const useFindRoomsInMap = () => {
   const query = useQuery({
     queryKey: ["rooms", "map"],
     queryFn: findRoomsInMap,
+  });
+  return query;
+};
+
+export const useFindRoomById = (id: string) => {
+  const query = useQuery({
+    queryKey: ["room", { id }],
+    queryFn: () => findRoomById(id),
   });
   return query;
 };

@@ -1,5 +1,6 @@
 "use client";
 
+import ImageListDialog from "@/components/rooms/image-list-dialog";
 import { useEffect, useState } from "react";
 
 export default function OpenProvider() {
@@ -7,5 +8,9 @@ export default function OpenProvider() {
   useEffect(() => setMounted(true), []);
 
   if (!mounted) return null;
-  return <></>;
+  return (
+    <>
+      <ImageListDialog />
+    </>
+  );
 }

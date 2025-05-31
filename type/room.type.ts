@@ -1,3 +1,5 @@
+import { BookingFormSchema } from "@/validation/room.schema";
+import { z } from "zod";
 import { CategoryType } from "./category.type";
 import { ImageType } from "./image.type";
 import { UserType } from "./user.type";
@@ -26,3 +28,5 @@ export type RoomType = {
   title: string;
   user: UserType;
 };
+
+export type BookingFormType = z.infer<typeof BookingFormSchema>;
