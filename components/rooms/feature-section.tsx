@@ -15,6 +15,7 @@ import { MdOutlineLocalLaundryService } from "react-icons/md";
 import { PiBathtub, PiMountainsDuotone } from "react-icons/pi";
 import { Avatar, AvatarImage } from "../ui/avatar";
 import BookingSection from "./booking-section";
+import CalendarSection from "./calendar-section";
 
 export default function FeatureSection({ room }: { room: RoomType }) {
   return (
@@ -185,9 +186,7 @@ export default function FeatureSection({ room }: { room: RoomType }) {
         </div>
         <div className="py-6 px-4 border-b border-gray-300 leading-8 text-gray-800">
           <h1 className="font-semibold text-xl mb-2">캘린더</h1>
-          <div className="mt-4 rounded-lg p-5 border border-gray-300">
-            캘린더 위치
-          </div>
+          <CalendarSection room={room} />
         </div>
         <div className="py-6 px-4 border-b border-gray-300 leading-8 text-gray-800">
           <h1 className="font-semibold text-xl mb-2">후기</h1>

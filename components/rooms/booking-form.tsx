@@ -7,7 +7,7 @@ import { BookingFormSchema } from "@/validation/room.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { addDays, format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Calendar } from "../ui/calendar";
@@ -40,7 +40,13 @@ export default function BookingForm({ room }: { room: RoomType }) {
   });
   const [isCheckInOpen, setIsCheckInOpen] = useState(false);
   const [isCheckOutOpen, setIsCheckOutOpen] = useState(false);
-
+  useEffect(() => {
+    form.reset({
+      checkIn: filterValue.checkIn,
+      checkOut: filterValue.checkOut,
+      guest: filterValue.guest || 1,
+    });
+  }, [filterValue, form]);
   return (
     <Form {...form}>
       <form className="mt-2">
@@ -76,6 +82,10 @@ export default function BookingForm({ room }: { room: RoomType }) {
                       selected={field.value ? new Date(field.value) : undefined}
                       onSelect={(date) => {
                         field.onChange(date);
+                        setFilterValue({
+                          ...filterValue,
+                          checkIn: date ? format(date, "yyyy-MM-dd") : "",
+                        });
                         setIsCheckInOpen(false);
                       }}
                       disabled={(date) =>
@@ -125,6 +135,10 @@ export default function BookingForm({ room }: { room: RoomType }) {
                       selected={field.value ? new Date(field.value) : undefined}
                       onSelect={(date) => {
                         field.onChange(date);
+                        setFilterValue({
+                          ...filterValue,
+                          checkOut: date ? format(date, "yyyy-MM-dd") : "",
+                        });
                         setIsCheckOutOpen(false);
                       }}
                       disabled={(date) =>
@@ -148,7 +162,10 @@ export default function BookingForm({ room }: { room: RoomType }) {
                 <FormLabel className="text-xs font-semibold">인원</FormLabel>
                 <FormControl>
                   <Select
-                    onValueChange={(v) => field.onChange(Number(v))}
+                    onValueChange={(v) => {
+                      field.onChange(Number(v));
+                      setFilterValue({ ...filterValue, guest: Number(v) });
+                    }}
                     defaultValue={String(field.value)}
                   >
                     <SelectTrigger className="w-full">
