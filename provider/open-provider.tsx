@@ -1,6 +1,7 @@
 "use client";
 
 import ImageListDialog from "@/components/rooms/image-list-dialog";
+import ShareDialog from "@/components/rooms/share-dialog";
 import { useEffect, useState } from "react";
 
 export default function OpenProvider() {
@@ -11,6 +12,7 @@ export default function OpenProvider() {
   return (
     <>
       <ImageListDialog />
+      <ShareDialog />
     </>
   );
 }

@@ -5,7 +5,8 @@ import { useImageListDialogStore } from "@/hooks/store/modal.stroe";
 import { RoomType } from "@/type/room.type";
 import Image from "next/image";
 import { AiOutlineUnorderedList } from "react-icons/ai";
-import { CiHeart, CiShare1 } from "react-icons/ci";
+import { CiHeart } from "react-icons/ci";
+import ShareButton from "./share-button";
 
 export default function HeaderSection({ room }: { room: RoomType }) {
   const { onOpen, setImages } = useImageListDialogStore();
@@ -15,13 +16,7 @@ export default function HeaderSection({ room }: { room: RoomType }) {
       <div className="flex w-full justify-between items-center px-4">
         <div className="underline text-xs md:text-sm mt-2">{room.address}</div>
         <div className="flex gap-2 text-xs md:text-sm mt-2">
-          <button
-            type="button"
-            className="flex gap-2 items-center px-2 py-1.5 rounded-lg hover:bg-black/10 cursor-pointer"
-          >
-            <CiShare1 />
-            <span className="underline">공유하기</span>
-          </button>
+          <ShareButton room={room} />
           <button
             type="button"
             className="flex gap-2 items-center px-2 py-1.5 rounded-lg hover:bg-black/10 cursor-pointer"

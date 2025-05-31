@@ -79,6 +79,7 @@ export default function BookingForm({ room }: { room: RoomType }) {
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
                       mode="single"
+                      month={field.value ? new Date(field.value) : new Date()}
                       selected={field.value ? new Date(field.value) : undefined}
                       onSelect={(date) => {
                         field.onChange(date);
@@ -132,6 +133,7 @@ export default function BookingForm({ room }: { room: RoomType }) {
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
                       mode="single"
+                      month={field.value ? new Date(field.value) : new Date()}
                       selected={field.value ? new Date(field.value) : undefined}
                       onSelect={(date) => {
                         field.onChange(date);

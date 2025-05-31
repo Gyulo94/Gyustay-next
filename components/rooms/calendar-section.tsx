@@ -18,6 +18,9 @@ export default function CalendarSection({ room }: { room: RoomType }) {
         <Calendar
           mode="single"
           selected={new Date(filterValue.checkIn)}
+          month={
+            filterValue.checkIn ? new Date(filterValue.checkIn) : new Date()
+          }
           onSelect={(date: Date | undefined) => {
             if (!date) return;
             setFilterValue({
@@ -48,6 +51,9 @@ export default function CalendarSection({ room }: { room: RoomType }) {
         <Calendar
           mode="single"
           selected={new Date(filterValue.checkOut)}
+          month={
+            filterValue.checkOut ? new Date(filterValue.checkOut) : new Date()
+          }
           onSelect={(date: Date | undefined) => {
             if (!date) return;
             setFilterValue({
