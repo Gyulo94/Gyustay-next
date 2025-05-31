@@ -8,11 +8,15 @@ import { SERVER_URL } from "./constants/common";
 
 async function refreshToken(token: JWT): Promise<JWT> {
   try {
-    const response = await axios.get(`${SERVER_URL}/auth/refresh`, {
-      headers: {
-        authorization: `Refresh ${token.serverTokens.refresh_token}`,
-      },
-    });
+    const response = await axios.post(
+      `${SERVER_URL}/auth/refresh`,
+      {},
+      {
+        headers: {
+          authorization: `Refresh ${token.serverTokens.refreshToken}`,
+        },
+      }
+    );
 
     console.log("refrershed");
 

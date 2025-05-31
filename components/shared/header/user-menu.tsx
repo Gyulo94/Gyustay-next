@@ -28,24 +28,13 @@ export default function UserMenu({ session }: { session: Session | null }) {
 
   const privateRoute = [
     {
-      label: "나의 여행",
-      href: "/trips",
+      label: "마이페이지",
+      href: "/user/mypage",
     },
     {
-      label: "나의 예약",
-      href: "/reservations",
-    },
-    {
-      label: "내의 숙소",
-      href: "/properties",
-    },
-    {
-      label: "나의 즐겨찾기",
-      href: "/favorites",
-    },
-    {
-      label: "호스팅 하기",
-      href: "/hosting",
+      label: "로그아웃",
+      href: "#",
+      signOut: true,
     },
   ];
   const router = useRouter();
@@ -83,15 +72,15 @@ export default function UserMenu({ session }: { session: Session | null }) {
               <div className="flex flex-col">
                 {privateRoute.map((item) => (
                   <DropdownMenuItem
-                    onClick={() => router.push(item.href)}
+                    onClick={() => {
+                      router.push(item.href);
+                      item.signOut && signOut();
+                    }}
                     key={item.label}
                   >
                     {item.label}
                   </DropdownMenuItem>
                 ))}
-                <DropdownMenuItem onClick={async () => await signOut()}>
-                  로그아웃
-                </DropdownMenuItem>
               </div>
             ) : (
               <div className="flex flex-col">
