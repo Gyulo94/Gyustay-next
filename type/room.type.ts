@@ -2,6 +2,7 @@ import { BookingFormSchema } from "@/validation/room.schema";
 import { z } from "zod";
 import { CategoryType } from "./category.type";
 import { ImageType } from "./image.type";
+import { LikeType } from "./like.type";
 import { UserType } from "./user.type";
 
 export type RoomType = {
@@ -27,6 +28,7 @@ export type RoomType = {
   selfCheckIn: boolean;
   title: string;
   user: UserType;
+  likes: LikeType;
 };
 
 export type BookingFormType = z.infer<typeof BookingFormSchema>;

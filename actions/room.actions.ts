@@ -25,9 +25,13 @@ export async function findRoomsInMap() {
   return response.data.body.data;
 }
 
-export async function findRoomById(id?: string) {
+export async function findRoomById(id?: number, userId?: string) {
   try {
-    const response = await axios.get(`${SERVER_URL}/room/${id}`);
+    const response = await axios.get(`${SERVER_URL}/room/${id}`, {
+      params: {
+        userId,
+      },
+    });
     return response.data.body;
   } catch (error) {
     if (axios.isAxiosError(error)) {
