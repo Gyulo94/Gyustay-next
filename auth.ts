@@ -124,6 +124,7 @@ export const config = {
       }
       if (trigger === "update" && session) {
         token.user.name = session.user.name;
+        token.user.description = session.user.description;
         token.user.image = session.user.image;
       }
       {
@@ -144,6 +145,7 @@ export const config = {
         role: token.user.role,
         email: token.user.email,
         name: token.user.name,
+        description: token.user.description,
         image: token.user.image,
         provider: token.user.provider,
       };
