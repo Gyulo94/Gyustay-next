@@ -76,7 +76,7 @@ export function KakaoMap() {
       ) : (
         <FullPageLoader />
       )}
-      <div id="map" className="w-full h-[84vh]" />
+      <div id="map" className="w-full h-[calc(100vh-52.8px-84.4px)]" />
     </>
   );
 }

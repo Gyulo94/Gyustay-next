@@ -19,7 +19,7 @@ export type RoomType = {
   hasMountainsView: boolean;
   hasShampoo: boolean;
   hasWifi: boolean;
-  id: number;
+  id: string;
   images: ImageType[];
   lat: string;
   lng: string;

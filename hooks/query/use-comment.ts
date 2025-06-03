@@ -1,4 +1,8 @@
-import { createComment, findCommentsByRoomId } from "@/actions/comment.action";
+import {
+  createComment,
+  findCommentsAllByUserId,
+  findCommentsByRoomId,
+} from "@/actions/comment.actions";
 import { CommentFormType } from "@/type/comment.type";
 import {
   useInfiniteQuery,
@@ -6,9 +10,10 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 
-export function useCreateComment(roomId: number) {
+export function useCreateComment(roomId: string) {
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (values: CommentFormType) => createComment(values, roomId),
@@ -28,7 +33,7 @@ export function useCreateComment(roomId: number) {
   return mutation;
 }
 
-export function useFindCommentsByRoomId(roomId: number, limit: number) {
+export function useFindCommentsByRoomId(roomId: string, limit: number) {
   const query = useQuery({
     enabled: !!roomId,
     queryKey: ["comments", { roomId }],
@@ -37,12 +42,25 @@ export function useFindCommentsByRoomId(roomId: number, limit: number) {
   return query;
 }
 
-export function useFindCommentsAllByRoomId(roomId: number, limit: number) {
+export function useFindCommentsAllByRoomId(roomId: string, limit: number) {
   const query = useInfiniteQuery({
     enabled: !!roomId,
     queryKey: ["comments", "all", { roomId }],
     queryFn: ({ pageParam = 1 }) =>
       findCommentsByRoomId(roomId, limit, pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) =>
+      lastPage.data.length > 0 ? lastPage.page + 1 : undefined,
+  });
+  return query;
+}
+
+export function useFindCommentsAllByUserId(limit: number) {
+  const { data: session } = useSession();
+  const userId = session?.user.id;
+  const query = useInfiniteQuery({
+    queryKey: ["comments", "all", { userId }],
+    queryFn: ({ pageParam = 1 }) => findCommentsAllByUserId(limit, pageParam),
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages) =>
       lastPage.data.length > 0 ? lastPage.page + 1 : undefined,

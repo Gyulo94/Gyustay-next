@@ -46,9 +46,9 @@ export const useShareDialogStore = create<ShareDialogStore>((set) => ({
 
 interface CommentsListDialogStore {
   isOpen: boolean;
-  onOpen: (roomId: number) => void;
+  onOpen: (roomId: string) => void;
   onClose: () => void;
-  roomId?: number;
+  roomId?: string;
 }
 export const useCommentsListDialogStore = create<CommentsListDialogStore>(
   (set) => ({
