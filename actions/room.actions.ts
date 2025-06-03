@@ -25,7 +25,7 @@ export async function findRoomsInMap() {
   return response.data.body.data;
 }
 
-export async function findRoomById(id?: number, userId?: string) {
+export async function findRoomById(id?: string, userId?: string) {
   try {
     const response = await axios.get(`${SERVER_URL}/room/${id}`, {
       params: {

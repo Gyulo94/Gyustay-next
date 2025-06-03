@@ -43,3 +43,17 @@ export const useShareDialogStore = create<ShareDialogStore>((set) => ({
   address: "",
   setAddress: (address) => set({ address }),
 }));
+
+interface CommentsListDialogStore {
+  isOpen: boolean;
+  onOpen: (roomId: number) => void;
+  onClose: () => void;
+  roomId?: number;
+}
+export const useCommentsListDialogStore = create<CommentsListDialogStore>(
+  (set) => ({
+    isOpen: false,
+    onOpen: (roomId) => set({ isOpen: true, roomId }),
+    onClose: () => set({ isOpen: false }),
+  })
+);

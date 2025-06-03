@@ -1,5 +1,6 @@
 "use client";
 
+import CommentsListDialog from "@/components/comment/comments-list-dialog";
 import ImageListDialog from "@/components/rooms/image-list-dialog";
 import ShareDialog from "@/components/rooms/share-dialog";
 import { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ export default function OpenProvider() {
     <>
       <ImageListDialog />
       <ShareDialog />
+      <CommentsListDialog />
     </>
   );
 }
