@@ -1,4 +1,5 @@
 import { DetailFilterType, FilterProps } from "@/type/index.type";
+import { differenceInDays } from "date-fns";
 import { create } from "zustand";
 
 interface DetailFilterStore {
@@ -25,3 +26,16 @@ export const useFilterStore = create<FilterStore>((set) => ({
   },
   setFilterValue: (filterValue) => set({ filterValue }),
 }));
+
+export function useCalculatedFilterState() {
+  const { filterValue } = useFilterStore();
+  const checkInDate = filterValue.checkIn
+    ? new Date(filterValue.checkIn)
+    : new Date();
+  const checkOutDate = filterValue.checkOut
+    ? new Date(filterValue.checkOut)
+    : new Date();
+  const guestCount = filterValue.guest || 1;
+  const dayCount = differenceInDays(checkOutDate, checkInDate);
+  return { guestCount, dayCount };
+}
