@@ -1,10 +1,16 @@
 "use client";
 
-import { createBooking, findBookingsAll } from "@/actions/booking.actions";
-import { BookingType } from "@/type/booking.type";
+import {
+  cancelBooking,
+  createBooking,
+  findBookingById,
+  findBookingsAll,
+} from "@/actions/booking.actions";
+import { BookingStatusType, BookingType } from "@/type/booking.type";
 import {
   useInfiniteQuery,
   useMutation,
+  useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
@@ -33,7 +39,7 @@ export function useCreateBoking() {
   return mutation;
 }
 
-export const useFindBookingsAll = () => {
+export function useFindBookingsAll() {
   const { data: session } = useSession();
   const query = useInfiniteQuery({
     enabled: !!session?.user.id,
@@ -44,4 +50,33 @@ export const useFindBookingsAll = () => {
       lastPage?.data.length > 0 ? lastPage.page + 1 : undefined,
   });
   return query;
-};
+}
+
+export function useFindBookingById(id?: string) {
+  const query = useQuery({
+    enabled: !!id,
+    queryFn: () => findBookingById(id as string),
+    queryKey: ["booking", { id }],
+  });
+  return query;
+}
+
+export function useCancelBooking(id?: string) {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (value: BookingStatusType) => cancelBooking(value, id),
+    onSuccess: (data) => {
+      toast.success(data.message);
+      queryClient.invalidateQueries({
+        queryKey: ["bookings"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["booking", { id }],
+      });
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+  return mutation;
+}

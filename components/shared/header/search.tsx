@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  useDetailFilterStore,
-  useFilterStore,
-} from "@/hooks/store/index.store";
+import { useDetailFilterStore, useFilterStore } from "@/hooks/store";
 import { cn } from "@/lib/utils";
 import { BiSearch } from "react-icons/bi";
 import { SearchFilter } from "./filter/search-filter";

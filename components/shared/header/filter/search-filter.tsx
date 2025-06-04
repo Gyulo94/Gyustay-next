@@ -1,8 +1,5 @@
 import { Calendar } from "@/components/ui/calendar";
-import {
-  useDetailFilterStore,
-  useFilterStore,
-} from "@/hooks/store/index.store";
+import { useDetailFilterStore, useFilterStore } from "@/hooks/store";
 import { cn } from "@/lib/utils";
 import { addDays, format } from "date-fns";
 import { useState } from "react";

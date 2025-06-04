@@ -27,7 +27,9 @@ export default function BookingsListPage() {
       </h1>
       <p className="mt-2 text-gray-500">나의 예약 일정을 확인해보세요.</p>
       {isLoading ? (
-        <Loader className="mt-10 mb-20" />
+        <div className="w-full h-[calc(100vh-84.4px-52.8px)] flex items-center justify-center">
+          <Loader />
+        </div>
       ) : (
         <div className="mb-20 mt-10 flex flex-col">
           {bookings?.pages.map((page, index) => (
@@ -45,17 +47,17 @@ export default function BookingsListPage() {
                   <div className="flex gap-4 items-center w-full justify-between">
                     <div className="flex items-center gap-4">
                       <Image
-                        src={booking.room.images[0].url}
+                        src={booking.room?.images[0].url!}
                         width={80}
                         height={80}
-                        alt={booking.room.title}
+                        alt={booking.room?.title!}
                         placeholder="blur"
                         blurDataURL={BLUR_DATA_URL}
                       />
                       <div>
-                        <h2 className="font-semibold">{booking.room.title}</h2>
+                        <h2 className="font-semibold">{booking.room?.title}</h2>
                         <p className="mt-1 text-sm text-gray-600">
-                          {booking.room.address}
+                          {booking.room?.address}
                         </p>
                         <p className="mt-1 text-xs text-gray-600">
                           {format(booking.checkIn, "yyyy년 MM월 dd일")} ~{" "}
@@ -67,7 +69,7 @@ export default function BookingsListPage() {
                     </div>
                     <button
                       type="button"
-                      onClick={() => router.push(`/rooms/${booking.room.id}`)}
+                      onClick={() => router.push(`/rooms/${booking.room?.id}`)}
                       className="flex gap-1 items-center underline hover:text-gray-500"
                     >
                       숙소 보기 <BiChevronRight className="text-xl" />

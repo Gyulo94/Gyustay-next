@@ -1,5 +1,5 @@
 import { findBookingById } from "@/actions/booking.actions";
-import { Button } from "@/components/ui/button";
+import RefundButton from "@/components/booking/refund-button";
 import { BLUR_DATA_URL } from "@/constants/common";
 import { currencyPrice } from "@/lib/utils";
 import { BookingType } from "@/type/booking.type";
@@ -21,24 +21,25 @@ export default async function BookingPage({
       <div className="rounded-md border border-gray-300 p-6 mt-10">
         <section className="flex border-b gap-4 pb-6">
           <Image
-            src={booking.room.images[0].url}
+            src={booking.room?.images[0].url!}
             width={100}
             height={100}
-            alt={booking.room.title}
+            alt={booking.room?.title!}
             className="rounded-md"
             placeholder="blur"
             blurDataURL={BLUR_DATA_URL}
           />
           <div className="flex flex-col justify-between">
-            <h1 className="text-sm">{booking.room.title}</h1>
+            <h1 className="text-sm">{booking.room?.title!}</h1>
             <p className="text-xs text-gray-500 line-clamp-4">
-              {booking.room.description}
+              {booking.room?.description}
             </p>
             <p className="text-xs text-gray-500">
-              {booking.room.category.name} | {currencyPrice(booking.room.price)}
+              {booking.room?.category.name} |{" "}
+              {currencyPrice(booking.room?.price!)}
             </p>
             <p className="text-xs text-gray-500">
-              후기 {booking.room.comments.length}
+              후기 {booking.room?.comments.length}
             </p>
           </div>
         </section>
@@ -69,9 +70,7 @@ export default async function BookingPage({
             </div>
           </div>
         </section>
-        <section className="flex flex-col gap-4">
-          <Button disabled={canRefund}>예약 취소</Button>
-        </section>
+        <RefundButton booking={booking} canRefund={canRefund} />
       </div>
     </div>
   );

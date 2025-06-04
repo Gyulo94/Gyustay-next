@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  useCalculatedFilterState,
-  useFilterStore,
-} from "@/hooks/store/index.store";
+import { useCalculatedFilterState, useFilterStore } from "@/hooks/store";
 import { cn, currencyPrice } from "@/lib/utils";
 import { BookingFormType, RoomType } from "@/type/room.type";
 import { BookingFormSchema } from "@/validation/room.schema";

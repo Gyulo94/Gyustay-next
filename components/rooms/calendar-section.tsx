@@ -1,4 +1,4 @@
-import { useFilterStore } from "@/hooks/store/index.store";
+import { useFilterStore } from "@/hooks/store";
 import { cn } from "@/lib/utils";
 import { RoomType } from "@/type/room.type";
 import { addDays, format } from "date-fns";

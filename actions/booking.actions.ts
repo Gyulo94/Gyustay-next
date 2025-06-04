@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth";
 import { SERVER_URL } from "@/constants/common";
-import { BookingType } from "@/type/booking.type";
+import { BookingStatusType, BookingType } from "@/type/booking.type";
 import axios from "axios";
 
 export async function createBooking(values: BookingType) {
@@ -58,4 +58,27 @@ export async function findBookingsAll({ pageParam }: { pageParam?: number }) {
     },
   });
   return response.data.body;
+}
+
+export async function cancelBooking(value: BookingStatusType, id?: string) {
+  const session = await auth();
+  const token = session?.serverTokens.accessToken;
+  try {
+    const response = await axios.put(
+      `${SERVER_URL}/booking/${id}`,
+      { status: value },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.message;
+      throw new Error(message);
+    }
+    throw error;
+  }
 }
