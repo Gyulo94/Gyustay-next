@@ -1,5 +1,6 @@
 "use client";
 
+import CommentEditDialog from "@/components/comment/comment-edit-dialog";
 import CommentsListDialog from "@/components/comment/comments-list-dialog";
 import ImageListDialog from "@/components/rooms/image-list-dialog";
 import ShareDialog from "@/components/rooms/share-dialog";
@@ -15,6 +16,7 @@ export default function OpenProvider() {
       <ImageListDialog />
       <ShareDialog />
       <CommentsListDialog />
+      <CommentEditDialog />
     </>
   );
 }

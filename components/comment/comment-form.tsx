@@ -20,7 +20,7 @@ export default function CommentForm({
   disabled,
   defaultValues,
 }: {
-  id?: number;
+  id?: string;
   onSubmit: (values: CommentFormType) => void;
   disabled?: boolean;
   defaultValues: CommentFormType;

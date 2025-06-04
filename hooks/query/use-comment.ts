@@ -1,7 +1,10 @@
 import {
   createComment,
+  deleteComment,
+  findCommentById,
   findCommentsAllByUserId,
   findCommentsByRoomId,
+  updateComment,
 } from "@/actions/comment.actions";
 import { CommentFormType } from "@/type/comment.type";
 import {
@@ -66,4 +69,53 @@ export function useFindCommentsAllByUserId(limit: number) {
       lastPage.data.length > 0 ? lastPage.page + 1 : undefined,
   });
   return query;
+}
+
+export function useFindCommentById(commentId?: string) {
+  const query = useQuery({
+    enabled: !!commentId,
+    queryKey: ["comment", { commentId }],
+    queryFn: () => findCommentById(commentId),
+  });
+  return query;
+}
+
+export function useUpdateComment(id?: string) {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (values: CommentFormType) => updateComment(values, id),
+    onSuccess: (data) => {
+      toast.success(data.message);
+      queryClient.invalidateQueries({
+        queryKey: ["comments"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["comment"],
+      });
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+  return mutation;
+}
+
+export function useDeleteComment() {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (id?: string) => deleteComment(id),
+    onSuccess: (data) => {
+      toast.success(data.message);
+      queryClient.invalidateQueries({
+        queryKey: ["comments"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["comment"],
+      });
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+  return mutation;
 }

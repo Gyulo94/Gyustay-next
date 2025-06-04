@@ -57,3 +57,18 @@ export const useCommentsListDialogStore = create<CommentsListDialogStore>(
     onClose: () => set({ isOpen: false }),
   })
 );
+
+interface CommentEditDialogStore {
+  isOpen: boolean;
+  onOpen: (commentId: string) => void;
+  onClose: () => void;
+  commentId?: string;
+}
+export const useCommentEditDialogStore = create<CommentEditDialogStore>(
+  (set) => ({
+    isOpen: false,
+    onOpen: (commentId) => set({ isOpen: true, commentId }),
+    onClose: () => set({ isOpen: false }),
+    commentId: undefined,
+  })
+);

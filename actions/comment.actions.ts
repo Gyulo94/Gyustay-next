@@ -76,3 +76,60 @@ export async function findCommentsAllByUserId(
     throw error;
   }
 }
+
+export async function findCommentById(id?: string) {
+  const session = await auth();
+  const token = session?.serverTokens.accessToken;
+  try {
+    const response = await axios.get(`${SERVER_URL}/comment/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data.body;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.message;
+      throw new Error(message);
+    }
+    throw error;
+  }
+}
+
+export async function updateComment(values: CommentFormType, id?: string) {
+  const session = await auth();
+  const token = session?.serverTokens.accessToken;
+  try {
+    const response = await axios.put(`${SERVER_URL}/comment/${id}`, values, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.message;
+      throw new Error(message);
+    }
+    throw error;
+  }
+}
+
+export async function deleteComment(id?: string) {
+  const session = await auth();
+  const token = session?.serverTokens.accessToken;
+  try {
+    const response = await axios.delete(`${SERVER_URL}/comment/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.message;
+      throw new Error(message);
+    }
+    throw error;
+  }
+}
