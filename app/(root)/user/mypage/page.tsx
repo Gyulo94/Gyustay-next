@@ -69,7 +69,7 @@ export default async function MyPage() {
             </div>
           </Link>
           <Link
-            href={"/user/comment"}
+            href={"/user/comments"}
             className="shadow-lg rounded-lg flex flex-col justify-between p-4 gap-12 hover:shadow-xl"
           >
             <AiOutlineComment className="text-xl md:text-3xl" />

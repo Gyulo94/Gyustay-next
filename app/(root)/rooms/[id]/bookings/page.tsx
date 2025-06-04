@@ -1,5 +1,5 @@
 import { findRoomById } from "@/actions/room.actions";
-import { Button } from "@/components/ui/button";
+import BookingButton from "@/components/booking/booking-button";
 import { BLUR_DATA_URL } from "@/constants/common";
 import { currencyPrice } from "@/lib/utils";
 import { RoomType } from "@/type/room.type";
@@ -81,9 +81,7 @@ export default async function BookingsPage({ params, searchParams }: Props) {
                 {currencyPrice(Number(totalAmount))}
               </div>
             </div>
-            <div>
-              <Button className="w-full">확인 및 결제</Button>
-            </div>
+            <BookingButton />
           </div>
         </div>
       </div>
