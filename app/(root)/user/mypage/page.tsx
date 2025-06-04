@@ -79,7 +79,7 @@ export default async function MyPage() {
             </div>
           </Link>
           <Link
-            href={"#"}
+            href={"/user/bookings"}
             className="shadow-lg rounded-lg flex flex-col justify-between p-4 gap-12 hover:shadow-xl"
           >
             <BsBookmark className="text-xl md:text-3xl" />

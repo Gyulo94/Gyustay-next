@@ -58,7 +58,7 @@ export default function CommentPage() {
   return (
     <>
       <ConfirmDialog />
-      <main className="max-w-[2520px] md:min-h-[calc(100vh-92.8px-84.4px)] mt-10 mx-auto xl:px-20 md:px-10 sm:px-2 px-4">
+      <main className="max-w-[2520px] md:min-h-[calc(100vh-92.8px-84.4px)] mx-auto xl:px-20 md:px-10 sm:px-2 px-4">
         <h1 className="font-semibold text-lg mt-10 md:text-2xl max-w-7xl mx-auto">
           나의 후기 목록
         </h1>

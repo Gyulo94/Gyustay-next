@@ -44,3 +44,18 @@ export async function findBookingById(id: string) {
     throw error;
   }
 }
+
+export async function findBookingsAll({ pageParam }: { pageParam?: number }) {
+  const session = await auth();
+  const token = session?.serverTokens.accessToken;
+  const response = await axios.get(`${SERVER_URL}/booking/all`, {
+    params: {
+      limit: 5,
+      page: pageParam,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data.body;
+}

@@ -1,5 +1,6 @@
 import { RoomType } from "./room.type";
 export type BookingType = {
+  id: string;
   checkIn: string;
   checkOut: string;
   guestCount: string;
@@ -7,4 +8,5 @@ export type BookingType = {
   totalDays: string;
   roomId: string;
   room: RoomType;
+  status: "PENDING" | "CANCELLED" | "SUCCESS";
 };
