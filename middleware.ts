@@ -6,7 +6,17 @@ export default auth((req) => {
   const session = !!req.auth;
   const role = req.auth?.user.role || "guest";
 
-  const protectedPaths = [/\/user\/(.*)/];
+  const protectedPaths = [
+    /\/user\/bookings\/(.*)/,
+    /\/user\/comments/,
+    /\/user\/edit/,
+    /\/user\/like/,
+    /\/user\/mypage/,
+    /\/payments/,
+    /\/payments\/success/,
+    /\/payments\/fail/,
+    /\/rooms\/create\/(.*)/,
+  ];
   const adminPaths = [/\/admin\/(.*)/];
 
   if (!session && protectedPaths.some((p) => p.test(pathname))) {

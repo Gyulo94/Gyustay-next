@@ -31,7 +31,14 @@ import {
 
 export default function BookingForm({ room }: { room: RoomType }) {
   const router = useRouter();
-  const { filterValue, setFilterValue } = useFilterStore();
+  const {
+    filterValue,
+    setFilterValue,
+    checkInMonth,
+    checkOutMonth,
+    setCheckInMonth,
+    setCheckOutMonth,
+  } = useFilterStore();
   const { dayCount, guestCount } = useCalculatedFilterState();
 
   const totalAmount = dayCount > 0 ? room.price * dayCount : 0;
@@ -48,12 +55,10 @@ export default function BookingForm({ room }: { room: RoomType }) {
   const [isCheckInOpen, setIsCheckInOpen] = useState(false);
   const [isCheckOutOpen, setIsCheckOutOpen] = useState(false);
   useEffect(() => {
-    form.reset({
-      checkIn: filterValue.checkIn,
-      checkOut: filterValue.checkOut,
-      guest: filterValue.guest || 1,
-    });
-  }, [filterValue, form]);
+    form.setValue("checkIn", filterValue.checkIn);
+    form.setValue("checkOut", filterValue.checkOut);
+    form.setValue("guest", filterValue.guest || 1);
+  }, [filterValue.checkIn, filterValue.checkOut, filterValue.guest, form]);
   return (
     <Form {...form}>
       <form
@@ -99,14 +104,16 @@ export default function BookingForm({ room }: { room: RoomType }) {
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
                       mode="single"
-                      month={field.value ? new Date(field.value) : new Date()}
+                      month={checkInMonth}
+                      onMonthChange={setCheckInMonth}
                       selected={field.value ? new Date(field.value) : undefined}
-                      onSelect={(date) => {
-                        field.onChange(date);
+                      onSelect={(date: Date | undefined) => {
+                        if (!date) return;
                         setFilterValue({
                           ...filterValue,
-                          checkIn: date ? format(date, "yyyy-MM-dd") : "",
+                          checkIn: format(date, "yyyy-MM-dd"),
                         });
+                        setCheckInMonth(date);
                         setIsCheckInOpen(false);
                       }}
                       disabled={(date) =>
@@ -153,14 +160,17 @@ export default function BookingForm({ room }: { room: RoomType }) {
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
                       mode="single"
-                      month={field.value ? new Date(field.value) : new Date()}
+                      month={checkOutMonth}
+                      onMonthChange={setCheckOutMonth}
                       selected={field.value ? new Date(field.value) : undefined}
-                      onSelect={(date) => {
+                      onSelect={(date: Date | undefined) => {
+                        if (!date) return;
                         field.onChange(date);
                         setFilterValue({
                           ...filterValue,
                           checkOut: date ? format(date, "yyyy-MM-dd") : "",
                         });
+                        setCheckOutMonth(date);
                         setIsCheckOutOpen(false);
                       }}
                       disabled={(date) =>

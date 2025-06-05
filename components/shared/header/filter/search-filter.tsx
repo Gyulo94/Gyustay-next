@@ -52,7 +52,8 @@ const LocationFilter = () => {
 };
 
 const CheckInFilter = () => {
-  const { filterValue, setFilterValue } = useFilterStore();
+  const { filterValue, setFilterValue, setCheckInMonth, checkInMonth } =
+    useFilterStore();
   const { detailFilter, setDetailFilter } = useDetailFilterStore();
   const handleDateSelect = (date: Date | undefined) => {
     if (!date) return;
@@ -60,6 +61,7 @@ const CheckInFilter = () => {
       ...filterValue,
       checkIn: format(date, "yyyy-MM-dd"),
     });
+    setCheckInMonth(date);
     setDetailFilter("checkOut");
   };
   return (
@@ -70,6 +72,8 @@ const CheckInFilter = () => {
     >
       <Calendar
         mode="single"
+        month={checkInMonth}
+        onMonthChange={setCheckInMonth}
         selected={new Date(filterValue.checkIn)}
         onSelect={handleDateSelect}
         className="rounded-md"
@@ -80,7 +84,8 @@ const CheckInFilter = () => {
 };
 
 const CheckOutFilter = () => {
-  const { filterValue, setFilterValue } = useFilterStore();
+  const { filterValue, setFilterValue, checkOutMonth, setCheckOutMonth } =
+    useFilterStore();
   const { detailFilter, setDetailFilter } = useDetailFilterStore();
   const handleDateSelect = (date: Date | undefined) => {
     if (!date) return;
@@ -88,6 +93,7 @@ const CheckOutFilter = () => {
       ...filterValue,
       checkOut: format(date, "yyyy-MM-dd"),
     });
+    setCheckOutMonth(date);
     setDetailFilter("guest");
   };
   return (
@@ -98,6 +104,8 @@ const CheckOutFilter = () => {
     >
       <Calendar
         mode="single"
+        month={checkOutMonth}
+        onMonthChange={setCheckOutMonth}
         selected={new Date(filterValue.checkOut)}
         onSelect={handleDateSelect}
         className="rounded-md"
@@ -114,7 +122,7 @@ const CheckOutFilter = () => {
 const GuestFilter = () => {
   const { filterValue, setFilterValue } = useFilterStore();
   const { detailFilter } = useDetailFilterStore();
-  const [counter, setCounter] = useState<number>(filterValue.guest || 0);
+  const [counter, setCounter] = useState<number>(filterValue.guest || 1);
   return (
     <FilterContainer
       title="여행자 수 추가하기"
@@ -142,7 +150,9 @@ const GuestFilter = () => {
               className={cn("m-auto", { "text-gray-200": counter <= 0 })}
             />
           </button>
-          <button className="w-3 text-center">{counter}</button>
+          <button className="w-3 text-center">
+            {filterValue.guest || counter}
+          </button>
           <button
             disabled={counter >= 20}
             className="rounded-full size-8 disabled:border-gray-200 hover:border-black cursor-pointer"

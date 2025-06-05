@@ -7,14 +7,20 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useRoomRegisterDialogStore } from "@/hooks/store/modal.stroe";
 
 import { Session } from "next-auth";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AiOutlineMenu } from "react-icons/ai";
 import { LuUserRound } from "react-icons/lu";
 
 export default function UserMenu({ session }: { session: Session | null }) {
+  const { isOpen, onOpen } = useRoomRegisterDialogStore();
+  console.log("isOpen:", isOpen);
+
+  const { status } = useSession();
   const publicRoute = [
     {
       label: "로그인",
@@ -41,9 +47,21 @@ export default function UserMenu({ session }: { session: Session | null }) {
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer">
-          호스팅 하기
-        </div>
+        {status === "authenticated" ? (
+          <button
+            onClick={onOpen}
+            className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+          >
+            당신의 공간을 등록해주세요
+          </button>
+        ) : (
+          <Link
+            href={"/login"}
+            className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
+          >
+            로그인 후 공간을 등록해주세요
+          </Link>
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger>
             <div className="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md transition">

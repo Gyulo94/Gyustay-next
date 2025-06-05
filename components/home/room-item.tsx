@@ -9,15 +9,16 @@ export default function RoomItem({ room }: { room: RoomType }) {
   return (
     <Link href={`/rooms/${room.id}`}>
       <div>
-        <Image
-          src={room.images[0].url}
-          alt={room.title}
-          width={500}
-          height={500}
-          placeholder="blur"
-          blurDataURL={BLUR_DATA_URL}
-          className="rounded-md w-full h-auto object-cover"
-        />
+        <div className="relative w-full aspect-square">
+          <Image
+            src={room.images[0].url}
+            alt={room.title}
+            fill
+            placeholder="blur"
+            blurDataURL={BLUR_DATA_URL}
+            className="rounded-md object-cover object-center"
+          />
+        </div>
         <div className="mt-2 font-semibold text-sm">{room.title}</div>
         <Badge>{room.category.name}</Badge>
         <div className="mt-1 text-gray-400 text-sm line-clamp-1">

@@ -13,7 +13,7 @@ export default function BookingSection({ room }: { room: RoomType }) {
             </span>{" "}
             /박
           </div>
-          <div className="text-xs">후기 15개</div>
+          <div className="text-xs">후기 {room.comments.length}</div>
         </div>
         <BookingForm room={room} />
       </div>

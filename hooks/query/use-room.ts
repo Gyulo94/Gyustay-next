@@ -1,9 +1,18 @@
 import {
+  createRoom,
   findRoomById,
   findRoomsAll,
   findRoomsInMap,
 } from "@/actions/room.actions";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { RoomFormType } from "@/type/room.type";
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export const useFindRoomsAll = ({ category }: { category?: string }) => {
   const query = useInfiniteQuery({
@@ -31,3 +40,17 @@ export const useFindRoomById = (id: string) => {
   });
   return query;
 };
+
+export function useCreateRoom() {
+  const queryClient = useQueryClient();
+  const router = useRouter();
+  const mutation = useMutation({
+    mutationFn: (values: RoomFormType) => createRoom(values),
+    onSuccess: (data) => {
+      toast.success(data.message);
+      queryClient.invalidateQueries({ queryKey: ["rooms"] });
+      router.push(`/rooms/${data.body.id}`);
+    },
+  });
+  return mutation;
+}

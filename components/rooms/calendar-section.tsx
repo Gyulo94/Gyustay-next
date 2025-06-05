@@ -6,7 +6,14 @@ import { buttonVariants } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 
 export default function CalendarSection({ room }: { room: RoomType }) {
-  const { filterValue, setFilterValue } = useFilterStore();
+  const {
+    filterValue,
+    setFilterValue,
+    checkInMonth,
+    checkOutMonth,
+    setCheckInMonth,
+    setCheckOutMonth,
+  } = useFilterStore();
   return (
     <div className="mt-4 flex flex-col gap-4">
       <div className="text-gray-500 text-sm">
@@ -18,15 +25,18 @@ export default function CalendarSection({ room }: { room: RoomType }) {
         <Calendar
           mode="single"
           selected={new Date(filterValue.checkIn)}
-          month={
-            filterValue.checkIn ? new Date(filterValue.checkIn) : new Date()
-          }
+          // month={
+          //   filterValue.checkIn ? new Date(filterValue.checkIn) : new Date()
+          // }
+          month={checkInMonth}
+          onMonthChange={setCheckInMonth}
           onSelect={(date: Date | undefined) => {
             if (!date) return;
             setFilterValue({
               ...filterValue,
               checkIn: format(date, "yyyy-MM-dd"),
             });
+            setCheckInMonth(date);
           }}
           className="h-full w-full flex"
           classNames={{
@@ -51,15 +61,18 @@ export default function CalendarSection({ room }: { room: RoomType }) {
         <Calendar
           mode="single"
           selected={new Date(filterValue.checkOut)}
-          month={
-            filterValue.checkOut ? new Date(filterValue.checkOut) : new Date()
-          }
+          // month={
+          //   filterValue.checkOut ? new Date(filterValue.checkOut) : new Date()
+          // }
+          month={checkOutMonth}
+          onMonthChange={setCheckOutMonth}
           onSelect={(date: Date | undefined) => {
             if (!date) return;
             setFilterValue({
               ...filterValue,
               checkOut: format(date, "yyyy-MM-dd"),
             });
+            setCheckOutMonth(date);
           }}
           className="h-full w-full flex"
           classNames={{
