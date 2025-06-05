@@ -17,8 +17,9 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export function useCreateBoking() {
+export function useCreateBoking(title: string) {
   const router = useRouter();
+  const { data: session } = useSession();
   const queryClient = useQueryClient();
   const mutation = useMutation({
     mutationFn: (values: BookingType) => createBooking(values),
@@ -30,7 +31,9 @@ export function useCreateBoking() {
       queryClient.invalidateQueries({
         queryKey: ["booking"],
       });
-      router.replace(`/user/bookings/${data.body.id}`);
+      router.replace(
+        `/payments?customerKey=${session?.user.id}&roomTitle=${title}&checkIn=${data.body.checkIn}&checkOut=${data.body.checkOut}&guestCount=${data.body.guestCount}&totalAmount=${data.body.totalAmount}&totalDays=${data.body.totalDays}&bookingId=${data.body.id}`
+      );
     },
     onError: (error: Error) => {
       toast.error(error.message);

@@ -27,3 +27,8 @@ export const FeatureDescription: Record<FeatureType, string> = {
   [FEATURE_TYPE.FREE_OFFICE_SPACE]: "사무시설이 있습니다.",
   [FEATURE_TYPE.NO_OFFICE_SPACE]: "사무시설이 없습니다.",
 };
+
+export const TOSS_PAYMENTS_CLIENT_KEY =
+  process.env.NEXT_PUBLIC_TOSS_PAYMENTS_CLIENT_KEY;
+
+export const TOSS_PAYMENTS_SECRET_KEY = process.env.TOSS_PAYMENTS_SECRET_KEY;

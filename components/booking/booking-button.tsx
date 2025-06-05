@@ -6,9 +6,9 @@ import { useSession } from "next-auth/react";
 import { useParams, useSearchParams } from "next/navigation";
 import { Button } from "../ui/button";
 
-export default function BookingButton() {
+export default function BookingButton({ title }: { title: string }) {
   const { status } = useSession();
-  const createBooking = useCreateBoking();
+  const createBooking = useCreateBoking(title);
   const searchParams = useSearchParams();
   const params = useParams();
 
@@ -27,6 +27,7 @@ export default function BookingButton() {
       guestCount: guestCount as string,
       totalAmount: totalAmount as string,
       totalDays: totalDays as string,
+      status: "PENDING",
     };
     createBooking.mutate(values);
   }

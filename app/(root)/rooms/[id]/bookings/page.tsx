@@ -81,7 +81,7 @@ export default async function BookingsPage({ params, searchParams }: Props) {
                 {currencyPrice(Number(totalAmount))}
               </div>
             </div>
-            <BookingButton />
+            <BookingButton title={room.title} />
           </div>
         </div>
       </div>

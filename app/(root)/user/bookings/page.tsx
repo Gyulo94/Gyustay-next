@@ -41,7 +41,9 @@ export default function BookingsListPage() {
                 >
                   <h1 className="font-semibold text-lg md:text-xl">
                     {booking.status === "SUCCESS"
-                      ? "예약된 여행"
+                      ? booking.payments && booking.payments.length > 0
+                        ? "예약된 여행 (결제 완료)"
+                        : "예약된 여행 (결제 진행 중)"
                       : "취소된 여행"}
                   </h1>
                   <div className="flex gap-4 items-center w-full justify-between">
