@@ -1,5 +1,8 @@
-import { auth } from "@/auth";
+"use client";
+
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { useRoomRegisterDialogStore } from "@/hooks/store/modal.stroe";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import {
   AiOutlineComment,
@@ -8,8 +11,9 @@ import {
 } from "react-icons/ai";
 import { BsBookmark, BsHouseAdd, BsHouseCheck } from "react-icons/bs";
 
-export default async function MyPage() {
-  const session = await auth();
+export default function MyPage() {
+  const { data: session } = useSession();
+  const { onOpen } = useRoomRegisterDialogStore();
 
   return (
     <div className="max-w-5xl md:h-[calc(100vh-52.8px-84.4px)] mx-auto px-4 flex items-center">
@@ -38,18 +42,18 @@ export default async function MyPage() {
               </h2>
             </div>
           </Link>
-          <Link
-            href={"#"}
-            className="shadow-lg rounded-lg flex flex-col justify-between p-4 gap-12 hover:shadow-xl"
+          <div
+            onClick={onOpen}
+            className="shadow-lg rounded-lg flex flex-col justify-between p-4 gap-12 hover:shadow-xl cursor-pointer"
           >
             <BsHouseAdd className="text-xl md:text-3xl" />
             <div>
               <h1 className="font-semibold">숙소 등록</h1>
               <h2 className="text-sm text-gray-500">나의 숙소 등록하기</h2>
             </div>
-          </Link>
+          </div>
           <Link
-            href={"#"}
+            href={"/user/rooms"}
             className="shadow-lg rounded-lg flex flex-col justify-between p-4 gap-12 hover:shadow-xl"
           >
             <BsHouseCheck className="text-xl md:text-3xl" />

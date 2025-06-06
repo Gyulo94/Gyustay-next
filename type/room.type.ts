@@ -37,6 +37,8 @@ export type RoomType = {
   user: UserType;
   likes: LikeType[];
   comments: CommentType[];
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type BookingFormType = z.infer<typeof BookingFormSchema>;

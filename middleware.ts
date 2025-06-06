@@ -12,9 +12,8 @@ export default auth((req) => {
     /\/user\/edit/,
     /\/user\/like/,
     /\/user\/mypage/,
-    /\/payments/,
-    /\/payments\/success/,
-    /\/payments\/fail/,
+    /\/user\/rooms/,
+    /\/payments\/(.*)/,
     /\/rooms\/create\/(.*)/,
   ];
   const adminPaths = [/\/admin\/(.*)/];

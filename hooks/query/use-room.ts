@@ -2,6 +2,7 @@ import {
   createRoom,
   findRoomById,
   findRoomsAll,
+  findRoomsByUserId,
   findRoomsInMap,
 } from "@/actions/room.actions";
 import { RoomFormType } from "@/type/room.type";
@@ -11,6 +12,7 @@ import {
   useQuery,
   useQueryClient,
 } from "@tanstack/react-query";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -53,4 +55,17 @@ export function useCreateRoom() {
     },
   });
   return mutation;
+}
+
+export function useFindRoomsByUserId(limit: number) {
+  const { data: session } = useSession();
+  const userId = session?.user.id;
+  const query = useInfiniteQuery({
+    queryKey: ["rooms", { userId }],
+    queryFn: ({ pageParam = 1 }) => findRoomsByUserId({ limit, pageParam }),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, pages) =>
+      lastPage?.data.length > 0 ? lastPage.page + 1 : undefined,
+  });
+  return query;
 }
