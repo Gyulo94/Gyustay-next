@@ -82,3 +82,13 @@ export const useRoomFormStore = create<RoomFormStore>((set) => ({
   setStep: (step) => set({ step }),
   setRoomForm: (form) => set({ roomForm: form }),
 }));
+
+interface SearchStore {
+  q?: string;
+  setQ: (q: string) => void;
+}
+
+export const useSearchStore = create<SearchStore>((set) => ({
+  q: "",
+  setQ: (q) => set({ q }),
+}));

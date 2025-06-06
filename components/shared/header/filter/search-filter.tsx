@@ -26,13 +26,13 @@ const LocationFilter = () => {
       isShow={detailFilter === "location"}
     >
       <div className="flex flex-wrap gap-4 mt-4">
-        {["서울", "부산", "대구", "인천", "광주", "대전", "울산"].map(
+        {["서울", "경기", "부산", "대구", "인천", "광주", "대전", "울산"].map(
           (value) => (
             <button
               key={value}
               type="button"
               className={cn(
-                "border rounded-lg px-5 py-2.5 hover:bg-gray-200 focus:bg-primary",
+                "border rounded-lg px-5 py-2.5 hover:bg-gray-200 focus:bg-primary focus:text-white",
                 {
                   "bg-primary text-white": filterValue.location === value,
                 }
@@ -46,6 +46,22 @@ const LocationFilter = () => {
             </button>
           )
         )}
+        <button
+          className={cn(
+            "border rounded-lg px-5 py-2.5 hover:bg-gray-200 focus:bg-primary focus:text-white",
+            {
+              "bg-primary text-white": filterValue.location === "",
+            }
+          )}
+          onClick={() => {
+            setFilterValue({
+              ...filterValue,
+              location: "",
+            });
+          }}
+        >
+          전체
+        </button>
       </div>
     </FilterContainer>
   );

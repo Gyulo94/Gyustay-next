@@ -1,5 +1,6 @@
 "use client";
 
+import RoomSearchFilter from "@/components/rooms/form/room-search-filter";
 import { Loader } from "@/components/shared/loader";
 import {
   DropdownMenu,
@@ -8,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useDeleteRoom, useFindRoomsByUserId } from "@/hooks/query/use-room";
+import { useSearchStore } from "@/hooks/store";
 import { useRoomUpdateDialogStore } from "@/hooks/store/modal.store";
 import { useConfirm } from "@/hooks/use-confirm";
 import { currencyPrice } from "@/lib/utils";
@@ -20,6 +22,7 @@ import { useInView } from "react-intersection-observer";
 
 export default function MyRoomsPage() {
   const { onOpen } = useRoomUpdateDialogStore();
+  const { q } = useSearchStore();
   const [ConfirmDialog, confirm] = useConfirm(
     "정말로 삭제하시겠습니까?",
     "삭제된 데이터는 복구할 수 없습니다."
@@ -34,7 +37,7 @@ export default function MyRoomsPage() {
     isFetching,
     isFetchingNextPage,
     isError,
-  } = useFindRoomsByUserId(12);
+  } = useFindRoomsByUserId({ limit: 12, q });
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -42,13 +45,6 @@ export default function MyRoomsPage() {
     }
   }, [fetchNextPage, hasNextPage, inView]);
 
-  if (isLoading || isFetching) {
-    return (
-      <div className="mt-10 mb-40 max-w-7xl mx-auto min-h-[calc(100vh-252.8px-84.4px)] flex items-center justify-center">
-        <Loader />
-      </div>
-    );
-  }
   if (isError) {
     throw new Error("내 숙소 목록을 불러오는 중 오류가 발생했습니다.");
   }
@@ -62,10 +58,11 @@ export default function MyRoomsPage() {
   return (
     <>
       <ConfirmDialog />
-      <div className="mt-10 mb-40 max-w-7xl mx-auto min-h-[calc(100vh-252.8px-84.4px)] overflow-auto">
+      <div className="mt-10 mb-40 max-w-7xl mx-auto min-h-[calc(100vh-252.8px-84.4px)] overflow-auto px-4">
         <h1 className="mb-10 text-lg md:text-2xl font-semibold">
           나의 숙소 관리
         </h1>
+        <RoomSearchFilter />
         <table className="text-sm text-left text-gray-500 shadow-lg overflow-x-auto table-auto">
           <thead className="text-xs text-gray-700 bg-gray-50">
             <tr>

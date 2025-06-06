@@ -17,6 +17,10 @@ export default function CategoryBox({ icon: Icon, label, selected }: Props) {
   const params = useSearchParams();
 
   const handleClick = useCallback(() => {
+    if (label === "전체") {
+      router.push("/");
+      return;
+    }
     let currentQuery = {};
     if (params) {
       currentQuery = qs.parse(params.toString());

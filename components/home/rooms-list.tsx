@@ -1,5 +1,6 @@
 "use client";
 import { useFindRoomsAll } from "@/hooks/query/use-room";
+import { useFilterStore } from "@/hooks/store";
 import { RoomType } from "@/type/room.type";
 import { useRouter } from "next/navigation";
 import { Fragment, useEffect } from "react";
@@ -13,8 +14,10 @@ interface Props {
 }
 
 export default function RoomsList({ category }: Props) {
+  const { filterValue } = useFilterStore();
   const { ref, inView } = useInView();
   const router = useRouter();
+  const location = filterValue.location || "";
   const {
     data: rooms,
     isFetching,
@@ -23,7 +26,7 @@ export default function RoomsList({ category }: Props) {
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
-  } = useFindRoomsAll({ category });
+  } = useFindRoomsAll({ category, location });
 
   if (isError) throw new Error("숙소 목록을 불러오는 중 오류가 발생했습니다.");
 

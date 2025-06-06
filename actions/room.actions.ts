@@ -8,15 +8,18 @@ import axios from "axios";
 export async function findRoomsAll({
   pageParam,
   category,
+  location,
 }: {
   pageParam?: number;
   category?: string;
+  location?: string;
 }) {
   const response = await axios.get(`${SERVER_URL}/room/all`, {
     params: {
       limit: 12,
       page: pageParam,
       category,
+      location,
     },
   });
   return response.data.body;
@@ -83,9 +86,11 @@ export async function createRoom(values: RoomFormType) {
 
 export async function findRoomsByUserId({
   limit,
+  q,
   pageParam,
 }: {
   limit: number;
+  q?: string;
   pageParam?: number;
 }) {
   const session = await auth();
@@ -95,6 +100,7 @@ export async function findRoomsByUserId({
       params: {
         limit,
         page: pageParam,
+        search: q,
       },
       headers: {
         Authorization: `Bearer ${token}`,

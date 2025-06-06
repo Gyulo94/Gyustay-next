@@ -20,10 +20,17 @@ import { toast } from "sonner";
 import { useRoomFormStore } from "../store";
 import { useRoomUpdateDialogStore } from "../store/modal.store";
 
-export const useFindRoomsAll = ({ category }: { category?: string }) => {
+export const useFindRoomsAll = ({
+  category,
+  location,
+}: {
+  category?: string;
+  location?: string;
+}) => {
   const query = useInfiniteQuery({
-    queryKey: ["rooms", { category }],
-    queryFn: ({ pageParam = 1 }) => findRoomsAll({ pageParam, category }),
+    queryKey: ["rooms", { category, location }],
+    queryFn: ({ pageParam = 1 }) =>
+      findRoomsAll({ pageParam, category, location }),
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages) =>
       lastPage?.data.length > 0 ? lastPage.page + 1 : undefined,
@@ -63,13 +70,19 @@ export function useCreateRoom() {
   return mutation;
 }
 
-export function useFindRoomsByUserId(limit: number) {
+export function useFindRoomsByUserId({
+  limit,
+  q,
+}: {
+  limit: number;
+  q?: string;
+}) {
   const { data: session } = useSession();
   const userId = session?.user.id;
   const query = useInfiniteQuery({
     enabled: !!userId,
-    queryKey: ["rooms", { userId }],
-    queryFn: ({ pageParam = 1 }) => findRoomsByUserId({ limit, pageParam }),
+    queryKey: ["rooms", { userId, q }],
+    queryFn: ({ pageParam = 1 }) => findRoomsByUserId({ limit, q, pageParam }),
     initialPageParam: 1,
     getNextPageParam: (lastPage, pages) =>
       lastPage?.data.length > 0 ? lastPage.page + 1 : undefined,
