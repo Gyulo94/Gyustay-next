@@ -11,7 +11,7 @@ import {
   useDeleteComment,
   useFindCommentsAllByUserId,
 } from "@/hooks/query/use-comment";
-import { useCommentEditDialogStore } from "@/hooks/store/modal.stroe";
+import { useCommentEditDialogStore } from "@/hooks/store/modal.store";
 import { useConfirm } from "@/hooks/use-confirm";
 import { CommentType } from "@/type/comment.type";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";

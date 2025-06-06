@@ -10,8 +10,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useRoomFormStore } from "@/hooks/store";
 import { cn } from "@/lib/utils";
-import { RoomRegisterAddressType } from "@/type/room.type";
-import { RoomRegisterAddressSchema } from "@/validation/room.schema";
+import { RoomAddressFormType } from "@/type/room.type";
+import { RoomAddressFormSchema } from "@/validation/room.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import DaumPostcodeEmbed from "react-daum-postcode";
@@ -19,16 +19,15 @@ import { useForm } from "react-hook-form";
 import ButtonWrap from "./button-wrap";
 import Stepper from "./stepper";
 
-export default function RoomRegisterAddress({
+export default function RoomOpenAddress({
   defaultValues,
 }: {
-  defaultValues: RoomRegisterAddressType;
+  defaultValues: RoomAddressFormType;
 }) {
   const { roomForm, setRoomForm, setStep } = useRoomFormStore();
   const [isOpen, setIsOpen] = useState(false);
-  const [disabled, setDisabled] = useState(false);
-  const form = useForm<RoomRegisterAddressType>({
-    resolver: zodResolver(RoomRegisterAddressSchema),
+  const form = useForm<RoomAddressFormType>({
+    resolver: zodResolver(RoomAddressFormSchema),
     defaultValues,
   });
 

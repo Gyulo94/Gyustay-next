@@ -9,7 +9,6 @@ export default function MapSection({ room }: { room: RoomType }) {
         <DetailRoomMap room={room} />
       </div>
       <div className="mt-8 font-semibold">{room.address}</div>
-      <div className="mt-3 text-gray-600">{room.description}</div>
     </div>
   );
 }

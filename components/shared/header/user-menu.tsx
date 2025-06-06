@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useRoomRegisterDialogStore } from "@/hooks/store/modal.stroe";
+import { useRoomRegisterDialogStore } from "@/hooks/store/modal.store";
 
 import { Session } from "next-auth";
 import { signOut, useSession } from "next-auth/react";

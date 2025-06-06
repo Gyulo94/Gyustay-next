@@ -1,7 +1,7 @@
 "use client";
 
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { useRoomRegisterDialogStore } from "@/hooks/store/modal.stroe";
+import { useRoomRegisterDialogStore } from "@/hooks/store/modal.store";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import {

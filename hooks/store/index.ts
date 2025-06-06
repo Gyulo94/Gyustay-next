@@ -2,7 +2,6 @@ import { DetailFilterType, FilterProps } from "@/type/index.type";
 import { RoomFormType } from "@/type/room.type";
 import { differenceInDays } from "date-fns";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 interface DetailFilterStore {
   detailFilter: null | DetailFilterType;
@@ -57,37 +56,29 @@ interface RoomFormStore {
   setRoomForm: (form: RoomFormType) => void;
 }
 
-export const useRoomFormStore = create<RoomFormStore>()(
-  persist(
-    (set) => ({
-      step: 1,
-
-      roomForm: {
-        images: [],
-        title: "",
-        address: "",
-        description: "",
-        bedroomDescription: "",
-        price: 0,
-        categoryId: "",
-        lat: "",
-        lng: "",
-        freeCancel: false,
-        selfCheckIn: false,
-        officeSpace: false,
-        hasMountainsView: false,
-        hasShampoo: false,
-        hasFreeLaundry: false,
-        hasAirConditioner: false,
-        hasWifi: false,
-        hasBarbeque: false,
-        hasFreeParking: false,
-      },
-      setStep: (step) => set({ step }),
-      setRoomForm: (form) => set({ roomForm: form }),
-    }),
-    {
-      name: "room-form-storage",
-    }
-  )
-);
+export const useRoomFormStore = create<RoomFormStore>((set) => ({
+  step: 1,
+  roomForm: {
+    images: [],
+    title: "",
+    address: "",
+    description: "",
+    bedroomDescription: "",
+    price: 0,
+    categoryId: "",
+    lat: "",
+    lng: "",
+    freeCancel: false,
+    selfCheckIn: false,
+    officeSpace: false,
+    hasMountainsView: false,
+    hasShampoo: false,
+    hasFreeLaundry: false,
+    hasAirConditioner: false,
+    hasWifi: false,
+    hasBarbeque: false,
+    hasFreeParking: false,
+  },
+  setStep: (step) => set({ step }),
+  setRoomForm: (form) => set({ roomForm: form }),
+}));

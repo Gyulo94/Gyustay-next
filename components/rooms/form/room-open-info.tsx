@@ -9,33 +9,23 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useRoomFormStore } from "@/hooks/store";
-import { RoomRegisterInfoType } from "@/type/room.type";
-import { RoomRegisterInfoSchema } from "@/validation/room.schema";
+import { RoomInfoFormType } from "@/type/room.type";
+import { RoomInfoFormSchema } from "@/validation/room.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import ButtonWrap from "./button-wrap";
 import Stepper from "./stepper";
 
-export default function RoomRegisterInfo({
+export default function RoomOpenInfo({
   defaultValues,
 }: {
-  defaultValues: RoomRegisterInfoType;
+  defaultValues: RoomInfoFormType;
 }) {
   const { roomForm, setRoomForm, setStep } = useRoomFormStore();
-  const form = useForm<RoomRegisterInfoType>({
-    resolver: zodResolver(RoomRegisterInfoSchema),
+  const form = useForm<RoomInfoFormType>({
+    resolver: zodResolver(RoomInfoFormSchema),
     defaultValues,
   });
-
-  useEffect(() => {
-    if (roomForm) {
-      form.setValue("title", roomForm.title || "");
-      form.setValue("description", roomForm.description || "");
-      form.setValue("price", roomForm.price || 0);
-      form.setValue("bedroomDescription", roomForm.bedroomDescription || "");
-    }
-  }, [roomForm, form.setValue]);
 
   return (
     <>
@@ -119,7 +109,7 @@ export default function RoomRegisterInfo({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-lg font-semibold">
-                    침실 설명
+                    객실 설명
                   </FormLabel>
                   <FormControl>
                     <Textarea

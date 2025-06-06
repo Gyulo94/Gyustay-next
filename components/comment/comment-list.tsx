@@ -1,6 +1,6 @@
 "use client";
 
-import { useCommentsListDialogStore } from "@/hooks/store/modal.stroe";
+import { useCommentsListDialogStore } from "@/hooks/store/modal.store";
 import { CommentType } from "@/type/comment.type";
 import { format } from "date-fns";
 import { BiChevronRight } from "react-icons/bi";
@@ -50,15 +50,17 @@ export default function CommentList({ comments, isLoading, roomId }: Props) {
           ))
         )}
       </div>
-      <div className="mt-8 mb-20">
-        <button
-          onClick={() => onOpen(roomId)}
-          type="button"
-          className="border border-gray-700 font-semibold rounded-lg px-6 py-4 flex items-center gap-4 hover:bg-black/5 cursor-pointer"
-        >
-          후기 ({comments?.totalCount}) 모두 보기
-        </button>
-      </div>
+      {comments.totalCount > 6 && (
+        <div className="mt-8 mb-20">
+          <button
+            onClick={() => onOpen(roomId)}
+            type="button"
+            className="border border-gray-700 font-semibold rounded-lg px-6 py-4 flex items-center gap-4 hover:bg-black/5 cursor-pointer"
+          >
+            후기 ({comments?.totalCount}) 모두 보기
+          </button>
+        </div>
+      )}
     </>
   );
 }

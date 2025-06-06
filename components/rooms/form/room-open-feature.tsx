@@ -2,22 +2,22 @@ import { Form, FormField } from "@/components/ui/form";
 import { ROOM_FEATURE } from "@/constants/common";
 import { useRoomFormStore } from "@/hooks/store";
 import { cn } from "@/lib/utils";
-import { RoomRegisterFeatureType } from "@/type/room.type";
-import { RoomRegisterFeatureSchema } from "@/validation/room.schema";
+import { RoomFeatureFormType } from "@/type/room.type";
+import { RoomFeatureFormSchema } from "@/validation/room.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import ButtonWrap from "./button-wrap";
 import Stepper from "./stepper";
 
-export default function RoomRegisterFeature({
+export default function RoomOpenFeature({
   defaultValues,
 }: {
-  defaultValues: RoomRegisterFeatureType;
+  defaultValues: RoomFeatureFormType;
 }) {
   const { roomForm, setRoomForm, setStep } = useRoomFormStore();
-  const form = useForm<RoomRegisterFeatureType>({
-    resolver: zodResolver(RoomRegisterFeatureSchema),
+  const form = useForm<RoomFeatureFormType>({
+    resolver: zodResolver(RoomFeatureFormSchema),
     defaultValues,
   });
 
@@ -48,7 +48,7 @@ export default function RoomRegisterFeature({
               <FormField
                 key={feature.value}
                 control={form.control}
-                name={feature.value as keyof RoomRegisterFeatureType}
+                name={feature.value as keyof RoomFeatureFormType}
                 render={({ field }) => (
                   <label
                     className={cn(

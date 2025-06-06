@@ -1,5 +1,5 @@
 import { useFindCommentsAllByRoomId } from "@/hooks/query/use-comment";
-import { useCommentsListDialogStore } from "@/hooks/store/modal.stroe";
+import { useCommentsListDialogStore } from "@/hooks/store/modal.store";
 import { CommentType } from "@/type/comment.type";
 import { format } from "date-fns";
 import { Fragment, useEffect } from "react";
@@ -33,7 +33,7 @@ export default function CommentsListDialog() {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-auto">
+      <DialogContent className="sm:max-w-2xl max-h-[90vh]">
         <DialogHeader>
           <DialogTitle className="text-xl md:text-2xl font-mediom text-center leading-6 text-gray-900">
             후기 전체 보기
@@ -42,7 +42,7 @@ export default function CommentsListDialog() {
         <h1 className="font-semibold text-xl mb-2 mt-4">
           후기 ({comments?.pages[0].totalCount})
         </h1>
-        <div className="mt-8 flex flex-col gap-12 mx-auto max-w-lg mb-10">
+        <div className="mt-8 flex flex-col gap-12 mx-auto max-w-lg mb-10 items-start w-full overflow-y-auto h-[70vh]">
           {isLoading ? (
             <Loader />
           ) : (

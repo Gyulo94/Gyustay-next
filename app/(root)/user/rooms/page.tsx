@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useFindRoomsByUserId } from "@/hooks/query/use-room";
+import { useRoomUpdateDialogStore } from "@/hooks/store/modal.store";
 import { currencyPrice } from "@/lib/utils";
 import { RoomType } from "@/type/room.type";
 import { format } from "date-fns";
@@ -17,6 +18,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useInView } from "react-intersection-observer";
 
 export default function MyRoomsPage() {
+  const { onOpen } = useRoomUpdateDialogStore();
   const { ref, inView } = useInView();
   const {
     data: rooms,
@@ -111,7 +113,9 @@ export default function MyRoomsPage() {
                       </td>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
-                      <DropdownMenuItem>수정</DropdownMenuItem>
+                      <DropdownMenuItem onClick={() => onOpen(room.id)}>
+                        수정
+                      </DropdownMenuItem>
                       <DropdownMenuItem>삭제</DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>

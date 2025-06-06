@@ -3,18 +3,29 @@
 import { categories } from "@/constants/categories";
 import { useRoomFormStore } from "@/hooks/store";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ButtonWrap from "./button-wrap";
 import Stepper from "./stepper";
 
-export default function RoomRegisterCategory() {
+export default function RoomOpenCategory({
+  categoryId,
+}: {
+  categoryId?: string;
+}) {
   const { roomForm, setRoomForm, setStep } = useRoomFormStore();
-  const initialCategory =
-    categories.find((category) => category.id === roomForm.categoryId)?.label ||
-    "";
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    roomForm.categoryId || ""
+  );
 
-  const [selectedCategory, setSelectedCategory] =
-    useState<string>(initialCategory);
+  useEffect(() => {
+    if (categoryId) {
+      const category = categories.find((cat) => cat.id === categoryId);
+      if (category) {
+        setSelectedCategory(category.id);
+        setRoomForm({ ...roomForm, categoryId: selectedCategory });
+      }
+    }
+  }, []);
 
   return (
     <>
@@ -29,16 +40,16 @@ export default function RoomRegisterCategory() {
               type="button"
               key={category.label}
               onClick={() => {
-                setSelectedCategory(category.label);
+                setSelectedCategory(category.id);
                 setRoomForm({ ...roomForm, categoryId: category.id });
               }}
               className={cn(
                 "hover:bg-purple-50 rounded-md px-6 py-4 flex flex-col gap-2 cursor-pointer",
                 {
                   "border-2 border-primary":
-                    selectedCategory === category.label,
+                    roomForm.categoryId === category.id,
                   "border-2 border-purple-300":
-                    selectedCategory !== category.label,
+                    roomForm.categoryId !== category.id,
                 }
               )}
             >
@@ -55,7 +66,11 @@ export default function RoomRegisterCategory() {
       <ButtonWrap
         prevDisabled
         nextDisabled={!selectedCategory}
-        nextOnClick={() => setStep(2)}
+        nextOnClick={() => {
+          setStep(2);
+          if (selectedCategory)
+            setRoomForm({ ...roomForm, categoryId: selectedCategory });
+        }}
       />
     </>
   );

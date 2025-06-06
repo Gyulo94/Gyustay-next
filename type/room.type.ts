@@ -1,9 +1,9 @@
 import {
   BookingFormSchema,
+  RoomAddressFormSchema,
+  RoomFeatureFormSchema,
   RoomFormSchema,
-  RoomRegisterAddressSchema,
-  RoomRegisterFeatureSchema,
-  RoomRegisterInfoSchema,
+  RoomInfoFormSchema,
 } from "@/validation/room.schema";
 import { z } from "zod";
 import { CategoryType } from "./category.type";
@@ -43,6 +43,6 @@ export type RoomType = {
 
 export type BookingFormType = z.infer<typeof BookingFormSchema>;
 export type RoomFormType = z.infer<typeof RoomFormSchema>;
-export type RoomRegisterInfoType = z.infer<typeof RoomRegisterInfoSchema>;
-export type RoomRegisterAddressType = z.infer<typeof RoomRegisterAddressSchema>;
-export type RoomRegisterFeatureType = z.infer<typeof RoomRegisterFeatureSchema>;
+export type RoomInfoFormType = z.infer<typeof RoomInfoFormSchema>;
+export type RoomAddressFormType = z.infer<typeof RoomAddressFormSchema>;
+export type RoomFeatureFormType = z.infer<typeof RoomFeatureFormSchema>;

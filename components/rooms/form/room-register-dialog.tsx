@@ -1,23 +1,83 @@
+import { useCreateRoom } from "@/hooks/query/use-room";
 import { useRoomFormStore } from "@/hooks/store";
-import { useRoomRegisterDialogStore } from "@/hooks/store/modal.stroe";
+import { useRoomRegisterDialogStore } from "@/hooks/store/modal.store";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
 } from "../../ui/dialog";
-import RoomRegisterAddress from "./room-register-address";
-import RoomRegisterCategory from "./room-register-category";
-import RoomRegisterFeature from "./room-register-feature";
-import RoomRegisterImage from "./room-register-Image";
-import RoomRegisterInfo from "./room-register-info";
+import RoomOpenAddress from "./room-open-address";
+import RoomOpenCategory from "./room-open-category";
+import RoomOpenFeature from "./room-open-feature";
+import RoomOpenImage from "./room-open-Image";
+import RoomOpenInfo from "./room-open-info";
 
 export default function RoomRegisterDialog() {
   const { isOpen, onClose } = useRoomRegisterDialogStore();
   const { roomForm } = useRoomFormStore();
-  const { step } = useRoomFormStore();
+  const { step, setStep, setRoomForm } = useRoomFormStore();
+  const createRoom = useCreateRoom();
+
+  function onSubmit() {
+    createRoom.mutate(roomForm, {
+      onSuccess: () => {
+        onClose();
+        setStep(1);
+        setRoomForm({
+          address: "",
+          bedroomDescription: "",
+          categoryId: "",
+          description: "",
+          freeCancel: false,
+          hasAirConditioner: false,
+          hasBarbeque: false,
+          hasFreeLaundry: false,
+          hasFreeParking: false,
+          hasMountainsView: false,
+          hasShampoo: false,
+          hasWifi: false,
+          images: [],
+          lat: "",
+          lng: "",
+          officeSpace: false,
+          price: 0,
+          selfCheckIn: false,
+          title: "",
+        });
+      },
+    });
+  }
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={() => {
+        onClose();
+        if (step !== 1) setStep(1);
+        setRoomForm({
+          address: "",
+          bedroomDescription: "",
+          categoryId: "",
+          description: "",
+          freeCancel: false,
+          hasAirConditioner: false,
+          hasBarbeque: false,
+          hasFreeLaundry: false,
+          hasFreeParking: false,
+          hasMountainsView: false,
+          hasShampoo: false,
+          hasWifi: false,
+          images: [],
+          lat: "",
+          lng: "",
+          officeSpace: false,
+          price: 0,
+          selfCheckIn: false,
+          title: "",
+        });
+      }}
+    >
       <DialogContent className="sm:max-w-5xl">
         <DialogHeader>
           <DialogTitle className="text-lg text-center font-mediom leading-6 text-gray-900">
@@ -25,11 +85,11 @@ export default function RoomRegisterDialog() {
           </DialogTitle>
         </DialogHeader>
         <section className="w-full mx-auto px-4 h-[80vh] md:min-h-[85vh] overflow-auto">
-          {step === 1 && <RoomRegisterCategory />}
-          {step === 2 && <RoomRegisterInfo defaultValues={roomForm} />}
-          {step === 3 && <RoomRegisterAddress defaultValues={roomForm} />}
-          {step === 4 && <RoomRegisterFeature defaultValues={roomForm} />}
-          {step === 5 && <RoomRegisterImage />}
+          {step === 1 && <RoomOpenCategory />}
+          {step === 2 && <RoomOpenInfo defaultValues={roomForm} />}
+          {step === 3 && <RoomOpenAddress defaultValues={roomForm} />}
+          {step === 4 && <RoomOpenFeature defaultValues={roomForm} />}
+          {step === 5 && <RoomOpenImage onSubmit={onSubmit} />}
         </section>
       </DialogContent>
     </Dialog>

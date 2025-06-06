@@ -1,6 +1,6 @@
 "use client";
 
-import { useShareDialogStore } from "@/hooks/store/modal.stroe";
+import { useShareDialogStore } from "@/hooks/store/modal.store";
 import { RoomType } from "@/type/room.type";
 import { CiShare1 } from "react-icons/ci";
 

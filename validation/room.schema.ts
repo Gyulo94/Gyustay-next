@@ -47,7 +47,7 @@ export const RoomFormSchema = z.object({
   hasFreeParking: z.boolean().optional(),
 });
 
-export const RoomRegisterInfoSchema = z.object({
+export const RoomInfoFormSchema = z.object({
   title: z.string().min(1, { message: "숙소 제목을 입력하세요." }).trim(),
   description: z.string().min(1, { message: "숙소 설명을 입력하세요." }).trim(),
   price: z.number().min(1000, { message: "최소 1,000원의 가격을 입력하세요." }),
@@ -57,11 +57,11 @@ export const RoomRegisterInfoSchema = z.object({
     .trim(),
 });
 
-export const RoomRegisterAddressSchema = z.object({
+export const RoomAddressFormSchema = z.object({
   address: z.string().min(1, { message: "숙소 위치를 입력하세요." }).trim(),
 });
 
-export const RoomRegisterFeatureSchema = z.object({
+export const RoomFeatureFormSchema = z.object({
   freeCancel: z.boolean().optional(),
   selfCheckIn: z.boolean().optional(),
   officeSpace: z.boolean().optional(),

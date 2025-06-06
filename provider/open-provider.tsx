@@ -3,6 +3,7 @@
 import CommentEditDialog from "@/components/comment/comment-edit-dialog";
 import CommentsListDialog from "@/components/comment/comments-list-dialog";
 import RoomRegisterDialog from "@/components/rooms/form/room-register-dialog";
+import RoomUpdateDialog from "@/components/rooms/form/room-update-dialog";
 import ImageListDialog from "@/components/rooms/image-list-dialog";
 import ShareDialog from "@/components/rooms/share-dialog";
 import { useEffect, useState } from "react";
@@ -19,6 +20,7 @@ export default function OpenProvider() {
       <CommentsListDialog />
       <CommentEditDialog />
       <RoomRegisterDialog />
+      <RoomUpdateDialog />
     </>
   );
 }

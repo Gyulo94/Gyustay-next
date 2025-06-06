@@ -47,8 +47,6 @@ export async function findRoomById(id?: string, userId?: string) {
 export async function createRoom(values: RoomFormType) {
   const session = await auth();
   const token = session?.serverTokens.accessToken;
-  console.log("values", values);
-
   const headers = {
     Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}`,
   };
@@ -103,6 +101,43 @@ export async function findRoomsByUserId({
       },
     });
     return response.data.body;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.message;
+      throw new Error(message);
+    }
+    throw error;
+  }
+}
+
+export async function updateRoom(values: RoomFormType, id?: string) {
+  const session = await auth();
+  const token = session?.serverTokens.accessToken;
+  const headers = {
+    Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}`,
+  };
+  const { data } = await axios.get(
+    `https://dapi.kakao.com/v2/local/search/address.json?query=${encodeURI(
+      values.address
+    )}`,
+    {
+      headers,
+    }
+  );
+
+  const body: RoomFormType = {
+    ...values,
+    lat: data.documents[0].address.y,
+    lng: data.documents[0].address.x,
+  };
+
+  try {
+    const response = await axios.put(`${SERVER_URL}/room/${id}`, body, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       const message = error.response?.data?.message;

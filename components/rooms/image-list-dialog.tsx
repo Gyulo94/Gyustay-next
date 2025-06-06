@@ -1,5 +1,5 @@
 import { BLUR_DATA_URL } from "@/constants/common";
-import { useImageListDialogStore } from "@/hooks/store/modal.stroe";
+import { useImageListDialogStore } from "@/hooks/store/modal.store";
 import Image from "next/image";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 

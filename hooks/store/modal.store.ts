@@ -86,3 +86,18 @@ export const useRoomRegisterDialogStore = create<RoomRegisterDialogStore>(
     onClose: () => set({ isOpen: false }),
   })
 );
+
+interface RoomUpdateDialogStore {
+  isOpen: boolean;
+  onOpen: (roomId: string) => void;
+  onClose: () => void;
+  roomId?: string;
+}
+export const useRoomUpdateDialogStore = create<RoomUpdateDialogStore>(
+  (set) => ({
+    isOpen: false,
+    onOpen: (roomId) => set({ isOpen: true, roomId }),
+    onClose: () => set({ isOpen: false }),
+    roomId: undefined,
+  })
+);

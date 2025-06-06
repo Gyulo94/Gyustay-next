@@ -2,7 +2,7 @@ import {
   useFindCommentById,
   useUpdateComment,
 } from "@/hooks/query/use-comment";
-import { useCommentEditDialogStore } from "@/hooks/store/modal.stroe";
+import { useCommentEditDialogStore } from "@/hooks/store/modal.store";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import CommentForm from "./comment-form";
 

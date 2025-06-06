@@ -1,7 +1,7 @@
 "use client";
 
 import { BLUR_DATA_URL } from "@/constants/common";
-import { useShareDialogStore } from "@/hooks/store/modal.stroe";
+import { useShareDialogStore } from "@/hooks/store/modal.store";
 import Image from "next/image";
 import Link from "next/link";
 import {

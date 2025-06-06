@@ -71,13 +71,13 @@ export default function FeatureSection({ room }: { room: RoomType }) {
             </div>
           </div>
         </div>
-        <div className="py-6 px-4 border-b border-gray-300 leading-8 text-gray-800">
+        <div className="py-6 px-4 border-b border-gray-300 leading-8 text-gray-800 whitespace-pre-wrap">
           <h1 className="font-semibold text-xl mb-2">숙소 설명</h1>
           {room.description ?? "숙소 설명이 없습니다."}
         </div>
-        <div className="py-6 px-4 border-b border-gray-300 leading-8 text-gray-800">
-          <h1 className="font-semibold text-xl mb-2">숙박 장소</h1>
-          {room.description ?? "숙소 설명이 없습니다."}
+        <div className="py-6 px-4 border-b border-gray-300 leading-8 text-gray-800 whitespace-pre-wrap">
+          <h1 className="font-semibold text-xl mb-2">객실 설명</h1>
+          {room.bedroomDescription ?? "숙소 설명이 없습니다."}
         </div>
         <div className="py-6 px-4 border-b border-gray-300 leading-8 text-gray-800">
           <h1 className="font-semibold text-xl mb-2">숙소 편의시설</h1>

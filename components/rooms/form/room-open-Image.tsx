@@ -1,7 +1,6 @@
 import { imageUpload } from "@/actions/file.actions";
-import { useCreateRoom } from "@/hooks/query/use-room";
 import { useRoomFormStore } from "@/hooks/store";
-import { useRoomRegisterDialogStore } from "@/hooks/store/modal.stroe";
+import { RoomFormType } from "@/type/room.type";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
@@ -10,11 +9,14 @@ import { toast } from "sonner";
 import ButtonWrap from "./button-wrap";
 import Stepper from "./stepper";
 
-export default function RoomRegisterImage() {
+interface Props {
+  defaultImages?: string[];
+  onSubmit: (roomForm: RoomFormType) => void;
+}
+
+export default function RoomOpenImage({ defaultImages, onSubmit }: Props) {
   const { roomForm, setRoomForm, setStep } = useRoomFormStore();
-  const { onClose } = useRoomRegisterDialogStore();
   const [images, setImages] = useState<string[]>([]);
-  const createRoom = useCreateRoom();
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       if (images.length + acceptedFiles.length > 6) {
@@ -43,10 +45,20 @@ export default function RoomRegisterImage() {
   };
 
   useEffect(() => {
-    if (roomForm.images && Array.isArray(roomForm.images)) {
-      setImages(roomForm.images);
+    if (
+      defaultImages &&
+      Array.isArray(defaultImages) &&
+      defaultImages.length > 0 &&
+      images.length === 0
+    ) {
+      const urls = defaultImages.map((img) => img);
+      setImages(urls);
+      setRoomForm({
+        ...roomForm,
+        images: urls,
+      });
     }
-  }, [roomForm.images]);
+  }, [defaultImages]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -59,12 +71,7 @@ export default function RoomRegisterImage() {
       toast.error("최소 1장의 사진을 업로드해야 합니다.");
       return;
     }
-    createRoom.mutate(roomForm, {
-      onSuccess: () => {
-        localStorage.removeItem("room-form-storage");
-        onClose();
-      },
-    });
+    onSubmit(roomForm);
   }
   return (
     <>
