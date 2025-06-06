@@ -16,11 +16,42 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://gyustay.vercel.app"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
     template: `%s | GyuStay`,
     default: APP_NAME as string,
   },
   description: APP_DESCRIPTION,
+  keywords: [
+    "여행",
+    "숙소",
+    "예약",
+    "여행지",
+    "여행 숙소",
+    "숙박",
+    "펜션",
+    "호텔",
+    "최저가",
+  ],
+  openGraph: {
+    title: APP_NAME,
+    description: APP_DESCRIPTION,
+    url: "https://gyustay.vercel.app",
+    siteName: APP_NAME,
+    locale: "ko_KR",
+    type: "website",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
 };
 
 export default async function RootLayout({
