@@ -1,5 +1,6 @@
 import {
   createRoom,
+  deleteRoom,
   findRoomById,
   findRoomsAll,
   findRoomsByUserId,
@@ -112,6 +113,26 @@ export function useUpdateRoom(id?: string) {
       queryClient.invalidateQueries({ queryKey: ["rooms"] });
       queryClient.invalidateQueries({ queryKey: ["room", { id }] });
       router.push(`/rooms/${data.body.id}`);
+    },
+  });
+  return mutation;
+}
+
+export function useDeleteRoom() {
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: (id?: string) => deleteRoom(id),
+    onSuccess: (data) => {
+      toast.success(data.message);
+      queryClient.invalidateQueries({
+        queryKey: ["rooms"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["room"],
+      });
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
     },
   });
   return mutation;
