@@ -5,7 +5,6 @@ import { format } from "date-fns";
 import { Fragment, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { Loader } from "../shared/loader";
-import { Avatar, AvatarImage } from "../ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 
 export default function CommentsListDialog() {
@@ -44,25 +43,33 @@ export default function CommentsListDialog() {
         </h1>
         <div className="mt-8 flex flex-col gap-12 mx-auto max-w-lg mb-10 items-start w-full overflow-y-auto h-[70vh]">
           {isLoading ? (
-            <Loader />
+            <div className="w-full h-full flex items-center justify-center">
+              <Loader />
+            </div>
           ) : (
             comments?.pages.map((page, index) => (
               <Fragment key={index}>
-                {page.data.map((comment: CommentType) => (
-                  <div key={comment.id} className="flex flex-col gap-2">
-                    <Avatar className="size-12 shadow">
-                      <AvatarImage
-                        src={comment.user.image}
-                        alt={comment.user.name}
+                {page?.data?.map((comment: CommentType) => (
+                  <div key={comment?.id} className="flex flex-col gap-2">
+                    <div className="flex gap-2 items-center">
+                      <img
+                        src={comment?.user?.image || "/images/user-icon.png"}
+                        alt="profile img"
+                        width={50}
+                        height={50}
+                        className="rounded-full"
                       />
-                    </Avatar>
-                    <h1 className="font-semibold">{comment.user.name}</h1>
-                    <div className="text-gray-500 text-xs">
-                      {" "}
-                      {format(new Date(comment.createdAt), "yyyy-MM-dd HH:mm")}
+                      <div>
+                        <h1 className="font-semibold">
+                          {comment?.user?.name || "-"}
+                        </h1>
+                        <div className="text-gray-500 text-xs">
+                          {format(comment?.createdAt, "yyyy-MM-dd HH:mm")}
+                        </div>
+                      </div>
                     </div>
-                    <div className="max-w-lg text-gray-600">
-                      {comment.content}
+                    <div className="max-w-md text-gray-600">
+                      {comment?.content}
                     </div>
                   </div>
                 ))}

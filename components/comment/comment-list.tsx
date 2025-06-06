@@ -5,7 +5,6 @@ import { CommentType } from "@/type/comment.type";
 import { format } from "date-fns";
 import { BiChevronRight } from "react-icons/bi";
 import { Loader } from "../shared/loader";
-import { Avatar, AvatarImage } from "../ui/avatar";
 
 interface Props {
   comments: {
@@ -27,22 +26,30 @@ export default function CommentList({ comments, isLoading, roomId }: Props) {
         {isLoading ? (
           <Loader className="md:col-span-2" />
         ) : (
-          comments.data.map((comment) => (
-            <div key={comment.id} className="flex flex-col gap-2">
-              <Avatar className="size-12 shadow">
-                <AvatarImage src={comment.user.image} alt={comment.user.name} />
-              </Avatar>
-              <h1 className="font-semibold">{comment.user.name}</h1>
-              <div className="text-gray-500 text-xs">
-                {format(new Date(comment.createdAt), "yyyy-MM-dd HH:mm")}
+          comments?.data?.map((comment) => (
+            <div key={comment?.id} className="flex flex-col gap-2">
+              <div className="flex gap-2 items-center">
+                <img
+                  src={comment?.user?.image || "/images/user-icon.png"}
+                  alt="profile img"
+                  width={50}
+                  height={50}
+                  className="rounded-full"
+                />
+                <div>
+                  <h1 className="font-semibold">
+                    {comment?.user?.name || "-"}
+                  </h1>
+                  <div className="text-gray-500 text-xs">
+                    {format(comment?.createdAt, "yyyy-MM-dd HH:mm")}
+                  </div>
+                </div>
               </div>
-              <div className="max-w-md text-gray-600 line-clamp-2">
-                {comment.content}
-              </div>
+              <div className="max-w-md text-gray-600">{comment?.content}</div>
               <button
-                onClick={() => onOpen(roomId)}
                 type="button"
-                className="underline font-semibold flex gap-1 items-center justify-start cursor-pointer w-fit"
+                onClick={() => onOpen(roomId)}
+                className="underline font-semibold flex gap-1 items-center justify-start"
               >
                 더보기 <BiChevronRight className="text-xl" />
               </button>
