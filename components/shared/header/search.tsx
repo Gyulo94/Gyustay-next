@@ -28,7 +28,9 @@ export default function Search({ showFilter, setShowFilter }: Props) {
         <div className="text-sm pl-6 pr-2 text-gray-600 flex flex-row items-center gap-3">
           <div className="hidden sm:block">게스트 추가</div>
           <button
+            type="button"
             onClick={() => setShowFilter(true)}
+            data-cy="filter-open-btn"
             className="p-2 bg-primary rounded-full text-white cursor-pointer hover:shadow hover:bg-primary/90 transition"
           >
             <BiSearch size={18} />
@@ -71,6 +73,7 @@ export default function Search({ showFilter, setShowFilter }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-4 w-full relative sm:pl-2">
           <button
             type="button"
+            data-cy="filter-location-btn"
             onClick={() => setDetailFilter("location")}
             className={cn(
               "font-semibold text-xs rounded-full hover:bg-gray-100 py-3 px-6 text-left cursor-pointer",
@@ -133,6 +136,7 @@ export default function Search({ showFilter, setShowFilter }: Props) {
         </div>
         <button
           type="button"
+          data-cy="filter-submit-btn"
           className="h-10 mx-4 sm:w-24 my-auto flex justify-center gap-1 px-3 py-2 bg-primary rounded-full text-white cursor-pointer hover:shadow hover:bg-primary/90 transition"
           onClick={() => {
             setShowFilter(false);

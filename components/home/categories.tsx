@@ -18,7 +18,10 @@ export default function Categories() {
 
   return (
     <Container>
-      <div className="pt-4 flex flex-row gap-4 items-center justify-between overflow-x-auto">
+      <div
+        data-cy="category-filter-all"
+        className="pt-4 flex flex-row gap-4 items-center justify-between overflow-x-auto"
+      >
         <CategoryBox label="전체" selected={!category} icon={BiReset} />
         {categories.map((item) => (
           <CategoryBox

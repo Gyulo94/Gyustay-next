@@ -6,15 +6,18 @@ interface Props {
   title: string;
   isShow?: boolean;
   isDatePicker?: boolean;
+  dataTile?: string;
 }
 export default function FilterContainer({
   children,
   title,
   isShow,
   isDatePicker,
+  dataTile = "",
 }: Props) {
   return (
     <div
+      data-cy={dataTile}
       className={cn(
         "absolute top-76 sm:top-[75px] border border-gray-200 px-8 py-10 flex flex-col bg-white w-full sm:max-w-3xl rounded-xl",
         {

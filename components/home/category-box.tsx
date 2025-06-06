@@ -45,6 +45,7 @@ export default function CategoryBox({ icon: Icon, label, selected }: Props) {
   }, [label, params, router]);
   return (
     <div
+      data-cy={`category-filter-${label}`}
       onClick={handleClick}
       className={cn(
         "flex flex-col items-center justify-center gap-2 py-3 border-b-2 hover:text-neutral-800 transition cursor-pointer",

@@ -50,7 +50,7 @@ export default function CommentList({ comments, isLoading, roomId }: Props) {
           ))
         )}
       </div>
-      {comments.totalCount > 6 && (
+      {comments?.totalCount > 6 && (
         <div className="mt-8 mb-20">
           <button
             onClick={() => onOpen(roomId)}
