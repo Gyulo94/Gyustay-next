@@ -47,27 +47,6 @@ export default function Search({ showFilter, setShowFilter }: Props) {
         >
           숙소
         </button>
-        <button
-          type="button"
-          className="text-gray-700 cursor-pointer"
-          onClick={() => window.alert("준비 중입니다.")}
-        >
-          체험
-        </button>
-        <button
-          type="button"
-          className="text-gray-700 cursor-pointer"
-          onClick={() => window.alert("준비 중입니다.")}
-        >
-          온라인 체험
-        </button>
-        <button
-          type="button"
-          className="font-semibold underline underline-offset-8 text-gray-500 cursor-pointer hover:text-black"
-          onClick={() => setShowFilter(false)}
-        >
-          필터 닫기
-        </button>
       </div>
       <div className="w-[90%] sm:max-w-3xl flex flex-col sm:flex-row border border-gray-200 rounded-lg py-4 sm:py-2 sm:rounded-full shadow-sm bg-white hover:shadow-lg cursor-pointer justify-between fixed top-20 inset-x-0 mx-auto">
         <div className="grid grid-cols-1 sm:grid-cols-4 w-full relative sm:pl-2">

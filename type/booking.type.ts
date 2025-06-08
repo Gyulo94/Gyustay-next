@@ -14,7 +14,7 @@ export type BookingType = {
   status?: BookingStatusType;
   createdAt?: string;
   updatedAt?: string;
-  payments: PaymentType[];
+  payments?: PaymentType[];
 };
 
 export type BookingStatusType = "SUCCESS" | "PENDING" | "CANCELLED" | "FAILED";

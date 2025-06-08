@@ -95,7 +95,7 @@ export const config = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
       async profile(profile) {
         const user = {
-          id: Number(profile.sub),
+          id: profile.sub,
           name: profile.name,
           password: "",
           email: profile.email,

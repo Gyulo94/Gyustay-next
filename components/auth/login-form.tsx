@@ -5,6 +5,7 @@ import { useLogin } from "@/hooks/query/use-auth";
 import { LoginFormType } from "@/type/auth.type";
 import { LoginFormSchema } from "@/validation/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
@@ -36,6 +37,15 @@ export function LoginForm() {
     <div className="flex flex-col gap-6">
       <Card>
         <CardHeader className="text-center">
+          <Link href={"/"} className="mb-4 flex justify-center">
+            <Image
+              src={"/logo/logo-icon.png"}
+              width={100}
+              height={100}
+              alt={"GyuStay"}
+              className="object-cover object-center"
+            />
+          </Link>
           <CardTitle className="text-xl">로그인</CardTitle>
         </CardHeader>
         <CardContent>

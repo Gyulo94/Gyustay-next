@@ -37,7 +37,7 @@ export function ResetPasswordForm() {
 
   if (!isLoading) {
     setTimeout(() => {
-      form.setValue("email", data);
+      form.setValue("email", data.email);
       form.setValue("token", token);
     }, 0);
   }
