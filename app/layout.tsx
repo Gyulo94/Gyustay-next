@@ -43,6 +43,14 @@ export const metadata: Metadata = {
     siteName: APP_NAME,
     locale: "ko_KR",
     type: "website",
+    images: [
+      {
+        url: "/logo/thumbnail.png",
+        width: 1200,
+        height: 630,
+        alt: APP_NAME,
+      },
+    ],
   },
   robots: {
     index: true,
