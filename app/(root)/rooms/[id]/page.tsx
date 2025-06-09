@@ -1,7 +1,7 @@
 import { findRoomById } from "@/actions/room.actions";
 import { auth } from "@/auth";
 import FeatureSection from "@/components/rooms/feature-section";
-import HeaderSection from "@/components/rooms/header-section";
+import { HeaderSection } from "@/components/rooms/header-section";
 import { Loader } from "@/components/shared/loader";
 import { RoomType } from "@/type/room.type";
 import { Metadata } from "next";
@@ -9,13 +9,13 @@ import dynamic from "next/dynamic";
 
 interface Props {
   params: {
-    id: Promise<string>;
+    id: string;
   };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const room: RoomType = await findRoomById(await id);
+  const room: RoomType = await findRoomById(id);
 
   return {
     title: `GyuStay 숙소 - ${room.title}`,
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function RoomPage({ params }: Props) {
   const { id } = await params;
   const session = await auth();
-  const room: RoomType = await findRoomById(await id);
+  const room: RoomType = await findRoomById(id);
 
   const Comment = dynamic(() => import("@/components/comment/comment"), {
     loading: () => <Loader />,

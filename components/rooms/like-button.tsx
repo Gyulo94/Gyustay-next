@@ -1,3 +1,5 @@
+"use client";
+
 import { useFindLikeRoomById, useToggleLike } from "@/hooks/query/use-like";
 import { RoomType } from "@/type/room.type";
 import { useSession } from "next-auth/react";

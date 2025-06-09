@@ -3,13 +3,22 @@
 import { BLUR_DATA_URL } from "@/constants/common";
 import { useImageListDialogStore } from "@/hooks/store/modal.store";
 import { RoomType } from "@/type/room.type";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { AiOutlineUnorderedList } from "react-icons/ai";
-import LikeButton from "./like-button";
-import ShareButton from "./share-button";
+import { Loader } from "../shared/loader";
 
-export default function HeaderSection({ room }: { room: RoomType }) {
+export function HeaderSection({ room }: { room: RoomType }) {
   const { onOpen, setImages } = useImageListDialogStore();
+  const ShareButton = dynamic(() => import("./share-button"), {
+    ssr: false,
+    loading: () => <Loader />,
+  });
+
+  const LikeButton = dynamic(() => import("./like-button"), {
+    ssr: false,
+    loading: () => <Loader />,
+  });
   return (
     <>
       <h1 className="text-lg md:text-3xl font-medium px-4">{room.title}</h1>
