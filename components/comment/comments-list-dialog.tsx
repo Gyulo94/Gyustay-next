@@ -2,10 +2,10 @@ import { useFindCommentsAllByRoomId } from "@/hooks/query/use-comment";
 import { useCommentsListDialogStore } from "@/hooks/store/modal.store";
 import { CommentType } from "@/type/comment.type";
 import { format } from "date-fns";
-import Image from "next/image";
 import { Fragment, useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { Loader } from "../shared/loader";
+import { Avatar, AvatarImage } from "../ui/avatar";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 
 export default function CommentsListDialog() {
@@ -53,13 +53,12 @@ export default function CommentsListDialog() {
                 {page?.data?.map((comment: CommentType) => (
                   <div key={comment?.id} className="flex flex-col gap-2">
                     <div className="flex gap-2 items-center">
-                      <Image
-                        src={comment?.user?.image || "/images/user-icon.png"}
-                        alt="profile img"
-                        width={50}
-                        height={50}
-                        className="rounded-full"
-                      />
+                      <Avatar className="size-12">
+                        <AvatarImage
+                          className="object-center object-cover"
+                          src={comment.user.image || "/images/user-icon.png"}
+                        />
+                      </Avatar>
                       <div>
                         <h1 className="font-semibold">
                           {comment?.user?.name || "-"}

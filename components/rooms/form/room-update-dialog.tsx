@@ -3,13 +3,13 @@ import { useRoomFormStore } from "@/hooks/store";
 import { useRoomUpdateDialogStore } from "@/hooks/store/modal.store";
 import { ImageType } from "@/type/image.type";
 import { RoomType } from "@/type/room.type";
-import { useEffect } from "react"; // <-- useCallback 임포트!
+import { useEffect } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "../../ui/dialog"; // 아마 shadcn ui 일듯?
+} from "../../ui/dialog";
 import RoomOpenAddress from "./room-open-address";
 import RoomOpenCategory from "./room-open-category";
 import RoomOpenFeature from "./room-open-feature";
@@ -17,7 +17,7 @@ import RoomOpenImage from "./room-open-Image";
 import RoomOpenInfo from "./room-open-info";
 
 export default function RoomUpdateDialog() {
-  const { isOpen, onClose, roomId } = useRoomUpdateDialogStore(); // <-- onClose 사용!
+  const { isOpen, onClose, roomId } = useRoomUpdateDialogStore();
   const { step, setStep, roomForm, setRoomForm } = useRoomFormStore();
   const { data, isLoading } = useFindRoomById(roomId);
   const updateRoom = useUpdateRoom(roomId);

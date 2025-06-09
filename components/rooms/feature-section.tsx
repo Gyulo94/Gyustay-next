@@ -32,6 +32,7 @@ export default function FeatureSection({ room }: { room: RoomType }) {
           </div>
           <Avatar className="size-12 shadow">
             <AvatarImage
+              className="object-center object-cover"
               src={room.user.image ?? "/images/noProfileImage.jpg"}
             />
           </Avatar>
