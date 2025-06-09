@@ -3,29 +3,15 @@
 import { categories } from "@/constants/categories";
 import { useRoomFormStore } from "@/hooks/store";
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
 import ButtonWrap from "./button-wrap";
 import Stepper from "./stepper";
 
-export default function RoomOpenCategory({
-  categoryId,
-}: {
-  categoryId?: string;
-}) {
+export default function RoomOpenCategory() {
   const { roomForm, setRoomForm, setStep } = useRoomFormStore();
-  const [selectedCategory, setSelectedCategory] = useState<string>(
-    roomForm.categoryId || ""
-  );
-
-  useEffect(() => {
-    if (categoryId) {
-      const category = categories.find((cat) => cat.id === categoryId);
-      if (category) {
-        setSelectedCategory(category.id);
-        setRoomForm({ ...roomForm, categoryId: selectedCategory });
-      }
-    }
-  }, [roomForm, categoryId, selectedCategory, setRoomForm]);
+  const handleCategoryClick = (id: string) => {
+    setRoomForm({ ...roomForm, categoryId: id });
+  };
+  const currentCategoryIdInStore = roomForm.categoryId;
 
   return (
     <>
@@ -39,17 +25,14 @@ export default function RoomOpenCategory({
             <button
               type="button"
               key={category.label}
-              onClick={() => {
-                setSelectedCategory(category.id);
-                setRoomForm({ ...roomForm, categoryId: category.id });
-              }}
+              onClick={() => handleCategoryClick(category.id)}
               className={cn(
                 "hover:bg-purple-50 rounded-md px-6 py-4 flex flex-col gap-2 cursor-pointer",
                 {
                   "border-2 border-primary":
-                    roomForm.categoryId === category.id,
+                    currentCategoryIdInStore === category.id,
                   "border-2 border-purple-300":
-                    roomForm.categoryId !== category.id,
+                    currentCategoryIdInStore !== category.id,
                 }
               )}
             >
@@ -65,12 +48,8 @@ export default function RoomOpenCategory({
       </section>
       <ButtonWrap
         prevDisabled
-        nextDisabled={!selectedCategory}
-        nextOnClick={() => {
-          setStep(2);
-          if (selectedCategory)
-            setRoomForm({ ...roomForm, categoryId: selectedCategory });
-        }}
+        nextDisabled={!currentCategoryIdInStore}
+        nextOnClick={() => setStep(2)}
       />
     </>
   );

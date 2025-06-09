@@ -3,13 +3,13 @@ import { useRoomFormStore } from "@/hooks/store";
 import { useRoomUpdateDialogStore } from "@/hooks/store/modal.store";
 import { ImageType } from "@/type/image.type";
 import { RoomType } from "@/type/room.type";
-import { useEffect } from "react";
+import { useEffect } from "react"; // <-- useCallback 임포트!
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "../../ui/dialog";
+} from "../../ui/dialog"; // 아마 shadcn ui 일듯?
 import RoomOpenAddress from "./room-open-address";
 import RoomOpenCategory from "./room-open-category";
 import RoomOpenFeature from "./room-open-feature";
@@ -17,7 +17,7 @@ import RoomOpenImage from "./room-open-Image";
 import RoomOpenInfo from "./room-open-info";
 
 export default function RoomUpdateDialog() {
-  const { isOpen, onClose, roomId } = useRoomUpdateDialogStore();
+  const { isOpen, onClose, roomId } = useRoomUpdateDialogStore(); // <-- onClose 사용!
   const { step, setStep, roomForm, setRoomForm } = useRoomFormStore();
   const { data, isLoading } = useFindRoomById(roomId);
   const updateRoom = useUpdateRoom(roomId);
@@ -52,41 +52,41 @@ export default function RoomUpdateDialog() {
     }
   }, [room, isOpen, setRoomForm]);
 
-  // console.log("roomForm", roomForm);
+  useEffect(() => {
+    if (!isOpen) {
+      if (step !== 1) {
+        setStep(1);
+      }
+      setRoomForm({
+        address: "",
+        bedroomDescription: "",
+        categoryId: "",
+        description: "",
+        freeCancel: false,
+        hasAirConditioner: false,
+        hasBarbeque: false,
+        hasFreeLaundry: false,
+        hasFreeParking: false,
+        hasMountainsView: false,
+        hasShampoo: false,
+        hasWifi: false,
+        images: [],
+        lat: "",
+        lng: "",
+        officeSpace: false,
+        price: 0,
+        selfCheckIn: false,
+        title: "",
+      });
+    }
+  }, [isOpen, step, setStep, setRoomForm]);
   if (isLoading || !room) return null;
 
   function onSubmit() {
     updateRoom.mutate(roomForm);
   }
   return (
-    <Dialog
-      open={isOpen}
-      onOpenChange={() => {
-        onClose();
-        if (step !== 1) setStep(1);
-        setRoomForm({
-          address: "",
-          bedroomDescription: "",
-          categoryId: "",
-          description: "",
-          freeCancel: false,
-          hasAirConditioner: false,
-          hasBarbeque: false,
-          hasFreeLaundry: false,
-          hasFreeParking: false,
-          hasMountainsView: false,
-          hasShampoo: false,
-          hasWifi: false,
-          images: [],
-          lat: "",
-          lng: "",
-          officeSpace: false,
-          price: 0,
-          selfCheckIn: false,
-          title: "",
-        });
-      }}
-    >
+    <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-5xl">
         <DialogHeader>
           <DialogTitle className="text-lg text-center font-mediom leading-6 text-gray-900">
@@ -94,7 +94,7 @@ export default function RoomUpdateDialog() {
           </DialogTitle>
         </DialogHeader>
         <section className="w-full mx-auto px-4 h-[80vh] md:min-h-[85vh] overflow-auto">
-          {step === 1 && <RoomOpenCategory categoryId={room.category.id} />}
+          {step === 1 && <RoomOpenCategory />}
           {step === 2 && <RoomOpenInfo defaultValues={roomForm} />}
           {step === 3 && <RoomOpenAddress defaultValues={roomForm} />}
           {step === 4 && <RoomOpenFeature defaultValues={roomForm} />}
