@@ -26,6 +26,10 @@ const nextConfig: NextConfig = {
         protocol: "http",
         hostname: "localhost",
       },
+      {
+        protocol: "http",
+        hostname: "118.36.196.85",
+      },
     ],
   },
   typescript: {
