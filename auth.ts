@@ -18,7 +18,7 @@ async function refreshToken(token: JWT): Promise<JWT> {
       }
     );
 
-    console.log("refrershed");
+    // console.log("refrershed");
 
     const newRefreshToken = await response.data.body;
 
@@ -40,6 +40,7 @@ export const config = {
   session: {
     strategy: "jwt",
   },
+  trustHost: true,
   cookies: {
     sessionToken: {
       name: process.env.NEXTAUTH_SESSION_TOKEN_NAME,

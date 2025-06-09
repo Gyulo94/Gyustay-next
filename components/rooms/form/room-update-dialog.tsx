@@ -1,6 +1,7 @@
 import { useFindRoomById, useUpdateRoom } from "@/hooks/query/use-room";
 import { useRoomFormStore } from "@/hooks/store";
 import { useRoomUpdateDialogStore } from "@/hooks/store/modal.store";
+import { ImageType } from "@/type/image.type";
 import { RoomType } from "@/type/room.type";
 import { useEffect } from "react";
 import {
@@ -38,7 +39,7 @@ export default function RoomUpdateDialog() {
         hasShampoo: room?.hasShampoo || false,
         hasWifi: room?.hasWifi || false,
         images:
-          room?.images?.map((img: any) =>
+          room?.images?.map((img: ImageType) =>
             typeof img === "string" ? img : img.url
           ) || [],
         lat: room?.lat || "",
@@ -49,9 +50,9 @@ export default function RoomUpdateDialog() {
         title: room?.title || "",
       });
     }
-  }, [room, isOpen]);
+  }, [room, isOpen, setRoomForm]);
 
-  console.log("roomForm", roomForm);
+  // console.log("roomForm", roomForm);
   if (isLoading || !room) return null;
 
   function onSubmit() {

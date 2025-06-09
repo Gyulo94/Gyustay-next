@@ -29,7 +29,7 @@ export default function LikePage() {
       // }, 100);
     }
   }, [fetchNextPage, hasNextPage, inView]);
-  console.log("rooms", rooms);
+  // console.log("rooms", rooms);
 
   return (
     <main className="max-w-[2520px] md:min-h-[calc(100vh-92.8px-84.4px)] mt-10 mx-auto xl:px-20 md:px-10 sm:px-2 px-4">

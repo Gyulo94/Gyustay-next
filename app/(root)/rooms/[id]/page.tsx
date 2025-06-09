@@ -54,6 +54,7 @@ export default async function RoomPage({ params }: Props) {
   const MapSection = dynamic(() => import("@/components/rooms/map-section"), {
     loading: () => <Loader />,
   });
+
   return (
     <div className="mt-8 mb-20 max-w-6xl mx-auto">
       <HeaderSection room={room} />

@@ -20,8 +20,6 @@ export default async function SuccessPage({ searchParams }: Props) {
     amount,
   });
 
-  console.log("Payment Data:", data);
-
   return (
     <div className="max-w-2xl mx-auto h-[calc(100vh-84.4px-52.8px)] py-20 px-4 flex flex-col justify-center">
       <div className="flex flex-col gap-6 border-b pb-8 pt-4">

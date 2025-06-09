@@ -31,12 +31,12 @@ export default function RoomsList({ category }: Props) {
   if (isError) throw new Error("숙소 목록을 불러오는 중 오류가 발생했습니다.");
 
   useEffect(() => {
-    let timerId: NodeJS.Timeout | undefined;
+    // let timerId: NodeJS.Timeout | undefined;
 
     if (inView && hasNextPage) {
-      timerId = setTimeout(() => {
-        fetchNextPage();
-      }, 500);
+      // timerId = setTimeout(() => {
+      fetchNextPage();
+      // }, 500);
     }
   }, [fetchNextPage, hasNextPage, inView]);
 

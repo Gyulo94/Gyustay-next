@@ -7,8 +7,6 @@ import { auth } from "./../auth";
 export async function imageUpload(formData: FormData) {
   const session = await auth();
   const token = session?.serverTokens.accessToken;
-  console.log("formData", formData);
-
   try {
     const response = await axios.post(`${SERVER_URL}/file/image`, formData, {
       headers: {

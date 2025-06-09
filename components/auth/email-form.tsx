@@ -4,7 +4,6 @@ import { Input } from "@/components/ui/input";
 import { useSendMail } from "@/hooks/query/use-auth";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -21,7 +20,6 @@ import {
 
 type EmailType = { email: string };
 const EmailForm = ({ type }: { type: "signup" | "reset" }) => {
-  const router = useRouter();
   const sendMail = useSendMail();
   const form = useForm<EmailType>({
     resolver: zodResolver(

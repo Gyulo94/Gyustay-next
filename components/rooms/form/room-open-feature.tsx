@@ -34,7 +34,7 @@ export default function RoomOpenFeature({
       form.setValue("hasBarbeque", roomForm.hasBarbeque || false);
       form.setValue("hasFreeParking", roomForm.hasFreeParking || false);
     }
-  }, [roomForm, form.setValue]);
+  }, [roomForm, form.setValue, form]);
   return (
     <>
       <Stepper count={4} />

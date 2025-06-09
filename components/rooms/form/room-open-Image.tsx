@@ -29,7 +29,7 @@ export default function RoomOpenImage({ defaultImages, onSubmit }: Props) {
         const formData = new FormData();
         formData.append("file", file);
         const data = await imageUpload(formData);
-        console.log("data", data);
+        // console.log("data", data);
         newImages.push(data);
       }
       setImages((prev) => [...prev, ...newImages]);
@@ -38,7 +38,7 @@ export default function RoomOpenImage({ defaultImages, onSubmit }: Props) {
         images: [...images, ...newImages],
       });
     },
-    [images]
+    [images, roomForm, setRoomForm]
   );
   const handleImageRemove = (index: number) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
@@ -58,7 +58,7 @@ export default function RoomOpenImage({ defaultImages, onSubmit }: Props) {
         images: urls,
       });
     }
-  }, [defaultImages]);
+  }, [defaultImages, images.length, roomForm, setRoomForm]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,

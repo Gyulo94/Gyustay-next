@@ -12,7 +12,7 @@ interface Props {
 
 export default function Search({ showFilter, setShowFilter }: Props) {
   const { detailFilter, setDetailFilter } = useDetailFilterStore();
-  const { filterValue, setFilterValue } = useFilterStore();
+  const { filterValue } = useFilterStore();
 
   return !showFilter ? (
     <div className="border-[1px] w-full md:w-auto py-2 rounded-full shadow-sm hover:shadow-md transition cursor-pointer">

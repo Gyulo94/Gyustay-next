@@ -17,8 +17,8 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { LuUserRound } from "react-icons/lu";
 
 export default function UserMenu({ session }: { session: Session | null }) {
-  const { isOpen, onOpen } = useRoomRegisterDialogStore();
-  console.log("isOpen:", isOpen);
+  const { onOpen } = useRoomRegisterDialogStore();
+  // console.log("isOpen:", isOpen);
 
   const { status } = useSession();
   const publicRoute = [
@@ -92,7 +92,7 @@ export default function UserMenu({ session }: { session: Session | null }) {
                   <DropdownMenuItem
                     onClick={() => {
                       router.push(item.href);
-                      item.signOut && signOut();
+                      if (item.signOut) signOut();
                     }}
                     key={item.label}
                   >

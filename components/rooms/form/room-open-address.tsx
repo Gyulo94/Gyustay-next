@@ -35,8 +35,9 @@ export default function RoomOpenAddress({
     if (roomForm) {
       form.setValue("address", roomForm.address || "");
     }
-  }, [roomForm, form.setValue]);
+  }, [roomForm, form.setValue, form]);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function handleComplete(data: any) {
     let fullAddress = data.address;
     let extraAddress = "";

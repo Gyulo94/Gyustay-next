@@ -49,10 +49,10 @@ export default function BookingsListPage() {
                   <div className="flex gap-4 items-center w-full justify-between">
                     <div className="flex items-center gap-4">
                       <Image
-                        src={booking.room?.images[0].url!}
+                        src={booking.room?.images[0].url || ""}
                         width={80}
                         height={80}
-                        alt={booking.room?.title!}
+                        alt={booking.room?.title || ""}
                         placeholder="blur"
                         blurDataURL={BLUR_DATA_URL}
                       />

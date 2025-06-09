@@ -6,10 +6,7 @@ import { toast } from "sonner";
 
 export default function LikeButton({ room }: { room: RoomType }) {
   const { data: session } = useSession();
-  const { data: roomData, refetch } = useFindLikeRoomById(
-    room.id,
-    session?.user.id
-  );
+  const { data: roomData } = useFindLikeRoomById(room.id, session?.user.id);
   const toggleLike = useToggleLike();
   function toggleLikeHandler() {
     if (session?.user && room) {
@@ -18,7 +15,7 @@ export default function LikeButton({ room }: { room: RoomType }) {
       toast.error("로그인이 필요합니다.");
     }
   }
-  console.log("roomData", roomData);
+  // console.log("roomData", roomData);
 
   return (
     <button

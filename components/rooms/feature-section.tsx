@@ -186,7 +186,7 @@ export default function FeatureSection({ room }: { room: RoomType }) {
         </div>
         <div className="py-6 px-4 border-b border-gray-300 leading-8 text-gray-800">
           <h1 className="font-semibold text-xl mb-2">캘린더</h1>
-          <CalendarSection room={room} />
+          <CalendarSection />
         </div>
       </div>
       <BookingSection room={room} />

@@ -3,6 +3,7 @@
 import { useCommentsListDialogStore } from "@/hooks/store/modal.store";
 import { CommentType } from "@/type/comment.type";
 import { format } from "date-fns";
+import Image from "next/image";
 import { BiChevronRight } from "react-icons/bi";
 import { Loader } from "../shared/loader";
 
@@ -29,7 +30,7 @@ export default function CommentList({ comments, isLoading, roomId }: Props) {
           comments?.data?.map((comment) => (
             <div key={comment?.id} className="flex flex-col gap-2">
               <div className="flex gap-2 items-center">
-                <img
+                <Image
                   src={comment?.user?.image || "/images/user-icon.png"}
                   alt="profile img"
                   width={50}

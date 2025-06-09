@@ -1,11 +1,8 @@
 import { useFilterStore } from "@/hooks/store";
-import { cn } from "@/lib/utils";
-import { RoomType } from "@/type/room.type";
 import { addDays, format } from "date-fns";
-import { buttonVariants } from "../ui/button";
 import { Calendar } from "../ui/calendar";
 
-export default function CalendarSection({ room }: { room: RoomType }) {
+export default function CalendarSection() {
   const {
     filterValue,
     setFilterValue,
@@ -38,25 +35,8 @@ export default function CalendarSection({ room }: { room: RoomType }) {
             });
             setCheckInMonth(date);
           }}
-          className="h-full w-full flex"
-          classNames={{
-            months:
-              "flex w-full flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 flex-1",
-            month: "space-y-4 w-full flex flex-col",
-            table: "w-full h-full border-collapse space-y-1",
-            head_cell:
-              "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem] w-full",
-            cell: cn(
-              "[&:has([aria-selected])]:bg-accent relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected].day-range-end)]:rounded-r-md",
-              "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md",
-              "w-full"
-            ),
-            day: cn(
-              buttonVariants({ variant: "ghost" }),
-              "size-8 w-full p-0 font-normal aria-selected:opacity-100 cursor-pointer"
-            ),
-          }}
-          fromDate={new Date()}
+          className="h-full w-full"
+          hidden={{ before: new Date() }}
         />
         <Calendar
           mode="single"
@@ -74,29 +54,12 @@ export default function CalendarSection({ room }: { room: RoomType }) {
             });
             setCheckOutMonth(date);
           }}
-          className="h-full w-full flex"
-          classNames={{
-            months:
-              "flex w-full flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 flex-1",
-            month: "space-y-4 w-full flex flex-col",
-            table: "w-full h-full border-collapse space-y-1",
-            head_cell:
-              "text-muted-foreground rounded-md w-8 font-normal text-[0.8rem] w-full",
-            cell: cn(
-              "[&:has([aria-selected])]:bg-accent relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected].day-range-end)]:rounded-r-md",
-              "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md",
-              "w-full"
-            ),
-            day: cn(
-              buttonVariants({ variant: "ghost" }),
-              "size-8 w-full p-0 font-normal aria-selected:opacity-100 cursor-pointer"
-            ),
-          }}
-          fromDate={
-            filterValue.checkIn
+          className="h-full w-full"
+          hidden={{
+            before: filterValue.checkIn
               ? addDays(new Date(filterValue.checkIn), 1)
-              : new Date()
-          }
+              : new Date(),
+          }}
         />
       </div>
     </div>

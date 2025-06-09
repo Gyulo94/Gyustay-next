@@ -25,6 +25,7 @@ export default function CategoryBox({ icon: Icon, label, selected }: Props) {
     if (params) {
       currentQuery = qs.parse(params.toString());
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const updatedQuery: any = {
       ...currentQuery,
       category: label,

@@ -6,9 +6,9 @@ import { AiOutlineSearch } from "react-icons/ai";
 export default function RoomSearchFilter() {
   const { setQ } = useSearchStore();
 
-  const debounce = (func: Function, delay: number) => {
+  const debounce = (func: (value: string) => void, delay: number) => {
     let timerId: NodeJS.Timeout;
-    return function (...args: any[]) {
+    return function (...args: [string]) {
       clearTimeout(timerId);
       timerId = setTimeout(() => {
         func(...args);

@@ -29,19 +29,20 @@ export default function ShareDialog() {
   };
 
   const handleShareTwitter = () => {
-    typeof window !== "undefined" &&
+    if (typeof window !== "undefined") {
       window.open(
         `https://www.twitter.com/intent/tweet?url=${window.location.href}`,
         "_blank"
       );
+    }
   };
-
   const handleShareFacebook = () => {
-    typeof window !== "undefined" &&
+    if (typeof window !== "undefined") {
       window.open(
         `https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`,
         "_blank"
       );
+    }
   };
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

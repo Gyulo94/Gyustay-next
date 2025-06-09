@@ -10,6 +10,7 @@ import { FullPageLoader } from "../shared/loader";
 
 declare global {
   interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     kakao: any;
   }
 }
@@ -20,7 +21,7 @@ export function KakaoMap() {
   const loadKakaoMap = () => {
     window.kakao.maps.load(() => {
       const mapContainer = document.getElementById("map");
-      var options = {
+      const options = {
         center: new window.kakao.maps.LatLng(DEFAULT_LAT, DEFAULT_LNG),
         level: ZOOM_LEVEL,
       };

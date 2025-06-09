@@ -59,7 +59,7 @@ export default function PaymentsPage() {
     }
 
     renderPaymentWidgets();
-  }, [widgets]);
+  }, [widgets, price]);
 
   async function handlePayment() {
     try {
@@ -69,7 +69,7 @@ export default function PaymentsPage() {
           orderId: uniqueOrderId,
           orderName: `${roomTitle.slice(0, 10)}_${totalDays}박`,
           customerName: session?.user.name || "고객",
-          customerEmail: session?.user.email!,
+          customerEmail: session?.user.email || "user@email.com",
         })
         .then(function (data) {
           createPayment.mutate(
@@ -99,7 +99,9 @@ export default function PaymentsPage() {
             );
           }
         });
-    } catch (error) {}
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (

@@ -26,22 +26,22 @@ export default async function BookingPage({
       <div className="rounded-md border border-gray-300 p-6 mt-10">
         <section className="flex border-b gap-4 pb-6">
           <Image
-            src={booking.room?.images[0].url!}
+            src={booking.room?.images[0].url || ""}
             width={100}
             height={100}
-            alt={booking.room?.title!}
+            alt={booking.room?.title || ""}
             className="rounded-md"
             placeholder="blur"
             blurDataURL={BLUR_DATA_URL}
           />
           <div className="flex flex-col justify-between">
-            <h1 className="text-sm">{booking.room?.title!}</h1>
+            <h1 className="text-sm">{booking.room?.title || ""}</h1>
             <p className="text-xs text-gray-500 line-clamp-4">
               {booking.room?.description}
             </p>
             <p className="text-xs text-gray-500">
               {booking.room?.category.name} |{" "}
-              {currencyPrice(booking.room?.price!)}
+              {currencyPrice(booking.room?.price || 0)}
             </p>
             <p className="text-xs text-gray-500">
               후기 {booking.room?.comments.length}
@@ -140,13 +140,13 @@ export default async function BookingPage({
           <Link
             href={`http://localhost:3000/payments?customerKey=${
               session?.user.id
-            }&roomTitle=${encodeURIComponent(booking?.room?.title!)}&checkIn=${
-              booking.checkIn
-            }&checkOut=${booking.checkOut}&guestCount=${
-              booking.guestCount
-            }&totalAmount=${booking.totalAmount}&totalDays=${
-              booking.totalDays
-            }&bookingId=${booking.id}`}
+            }&roomTitle=${encodeURIComponent(
+              booking?.room?.title || ""
+            )}&checkIn=${booking.checkIn}&checkOut=${
+              booking.checkOut
+            }&guestCount=${booking.guestCount}&totalAmount=${
+              booking.totalAmount
+            }&totalDays=${booking.totalDays}&bookingId=${booking.id}`}
           >
             <Button className="w-full mt-4">결제하기</Button>
           </Link>

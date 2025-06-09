@@ -5,7 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 
 export default function ImageListDialog() {
   const { isOpen, onClose, images } = useImageListDialogStore();
-  console.log("ImageListDialog images:", images);
+  // console.log("ImageListDialog images:", images);
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>

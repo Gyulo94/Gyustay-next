@@ -31,7 +31,6 @@ export default function MyRoomsPage() {
   const { ref, inView } = useInView();
   const {
     data: rooms,
-    isLoading,
     fetchNextPage,
     hasNextPage,
     isFetching,

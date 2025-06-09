@@ -25,7 +25,7 @@ export default function RoomOpenCategory({
         setRoomForm({ ...roomForm, categoryId: selectedCategory });
       }
     }
-  }, []);
+  }, [roomForm, categoryId, selectedCategory, setRoomForm]);
 
   return (
     <>
