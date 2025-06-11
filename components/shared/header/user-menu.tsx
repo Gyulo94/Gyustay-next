@@ -1,6 +1,5 @@
 "use client";
 
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,6 +9,7 @@ import {
 
 import { Session } from "next-auth";
 import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AiOutlineMenu } from "react-icons/ai";
@@ -66,16 +66,18 @@ export default function UserMenu({ session }: { session: Session | null }) {
               <AiOutlineMenu className="cursor-pointer sm:ml-2" />
 
               {session?.user ? (
-                <Avatar>
-                  <AvatarImage
+                <div className="relative overflow-hidden size-[32px] rounded-full">
+                  <Image
                     src={
                       session.user.image
                         ? session.user.image
                         : "/images/noProfileImage.jpg"
                     }
-                    alt="profile"
+                    alt={`Profile`}
+                    fill
+                    className="object-cover object-center"
                   />
-                </Avatar>
+                </div>
               ) : (
                 <div className="p-0 sm:p-1.5">
                   <LuUserRound className="size-5" />

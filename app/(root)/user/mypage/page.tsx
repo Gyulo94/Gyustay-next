@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import Image from "next/image";
 import Link from "next/link";
 import {
   AiOutlineComment,
@@ -16,11 +16,18 @@ export default async function MyPage() {
       <div className="my-auto w-full">
         <h1 className="text-3xl font-semibold">계정</h1>
         <div className="flex gap-2 mt-2 text-lg">
-          <Avatar>
-            <AvatarImage
-              src={session?.user.image || "/images/noProfileImage.jpg"}
+          <div className="relative overflow-hidden size-[32px] rounded-full">
+            <Image
+              src={
+                session?.user.image
+                  ? session.user.image
+                  : "/images/noProfileImage.jpg"
+              }
+              alt={`Profile`}
+              fill
+              className="object-cover object-center"
             />
-          </Avatar>
+          </div>
           <div className="font-semibold">{session?.user.name}</div>
           <div className="font-semibold">·</div>
           <div className="text-gray-700">{session?.user.email}</div>

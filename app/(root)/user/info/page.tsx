@@ -1,7 +1,7 @@
 import { getMe } from "@/actions/user.actions";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { UserType } from "@/type/user.type";
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function UserInfoPage() {
@@ -17,9 +17,14 @@ export default async function UserInfoPage() {
       </div>
       <div className="flex flex-col mt-10 mb-28">
         <div className="flex justify-center items-center">
-          <Avatar className="size-32 object-cover object-center shadow">
-            <AvatarImage src={user.image || "/images/noProfileImage.jpg"} />
-          </Avatar>
+          <div className="relative overflow-hidden size-[150px] rounded-full shadow">
+            <Image
+              src={user.image ? user.image : "/images/noProfileImage.jpg"}
+              alt={`Profile`}
+              fill
+              className="object-cover object-center"
+            />
+          </div>
         </div>
         <div className="flex flex-col gap-2 border-b-gray-200 border-b py-4">
           <h1 className="font-semibold">이름</h1>
