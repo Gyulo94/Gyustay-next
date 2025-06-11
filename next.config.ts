@@ -39,7 +39,7 @@ const nextConfig: NextConfig = {
   async rewrites() {
     return [
       {
-        source: "users/:path*",
+        source: "/users/:path*",
         destination: `${SERVER_URL}/uploads/users/:path*`,
       },
     ];
