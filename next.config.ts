@@ -27,8 +27,8 @@ const nextConfig: NextConfig = {
         hostname: "localhost",
       },
       {
-        protocol: "http",
-        hostname: "118.36.196.85",
+        protocol: "https",
+        hostname: "gyubuntu.duckdns.org",
       },
     ],
   },
