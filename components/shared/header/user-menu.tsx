@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import { Session } from "next-auth";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -17,8 +17,6 @@ import { LuUserRound } from "react-icons/lu";
 
 export default function UserMenu({ session }: { session: Session | null }) {
   // console.log("isOpen:", isOpen);
-
-  const { status } = useSession();
   const publicRoute = [
     {
       label: "로그인",
@@ -45,7 +43,7 @@ export default function UserMenu({ session }: { session: Session | null }) {
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        {status === "authenticated" ? (
+        {session && session.user ? (
           <Link
             href={"/rooms/register/category"}
             className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"

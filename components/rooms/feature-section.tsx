@@ -3,6 +3,7 @@
 import { FeatureDescription } from "@/constants/common";
 import { cn } from "@/lib/utils";
 import { RoomType } from "@/type/room.type";
+import Image from "next/image";
 import {
   AiOutlineCheckCircle,
   AiOutlineDesktop,
@@ -13,7 +14,6 @@ import { GiBarbecue } from "react-icons/gi";
 import { LuCircleParking } from "react-icons/lu";
 import { MdOutlineLocalLaundryService } from "react-icons/md";
 import { PiBathtub, PiMountainsDuotone } from "react-icons/pi";
-import { Avatar, AvatarImage } from "../ui/avatar";
 import BookingSection from "./booking-section";
 import CalendarSection from "./calendar-section";
 
@@ -30,12 +30,16 @@ export default function FeatureSection({ room }: { room: RoomType }) {
               {room.user.description ?? "호스트 설명이 없습니다."}
             </p>
           </div>
-          <Avatar className="size-12 shadow">
-            <AvatarImage
-              className="object-center object-cover"
-              src={room.user.image ?? "/images/noProfileImage.jpg"}
+          <div className="relative overflow-hidden size-[48px] rounded-full shadow">
+            <Image
+              src={
+                room.user.image ? room.user.image : "/images/noProfileImage.jpg"
+              }
+              alt={`Profile`}
+              fill
+              className="object-cover object-center"
             />
-          </Avatar>
+          </div>
         </div>
         <div className="mt-4 flex flex-col gap-6 py-6 border-y border-gray-300">
           <div className="flex gap-6 items-center px-4">
