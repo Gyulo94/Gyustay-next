@@ -54,9 +54,9 @@ export default function RoomUpdateDialog() {
 
   useEffect(() => {
     if (!isOpen) {
-      if (step !== 1) {
-        setStep(1);
-      }
+      // if (step !== 1) {
+      //   setStep(1);
+      // }
       setRoomForm({
         address: "",
         bedroomDescription: "",
@@ -86,7 +86,13 @@ export default function RoomUpdateDialog() {
     updateRoom.mutate(roomForm);
   }
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={() => {
+        onClose();
+        setStep(1);
+      }}
+    >
       <DialogContent className="sm:max-w-5xl">
         <DialogHeader>
           <DialogTitle className="text-lg text-center font-mediom leading-6 text-gray-900">
