@@ -44,7 +44,7 @@ export default function RoomsList({ category }: Props) {
     <RoomsSkeleton />
   ) : (
     <div>
-      <div className="grid px-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-20 sm:px-4 md:px-8 lg:px-16 mt-5">
+      <div className="grid px-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-20 sm:px-4 md:px-8 lg:px-16 mt-5 min-h-[calc(100vh-466.18px)]">
         {rooms?.pages?.map((page, index) => (
           <Fragment key={index}>
             {page.data.map((room: RoomType) => (
