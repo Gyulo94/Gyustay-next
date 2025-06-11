@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { SERVER_URL } from "./constants/common";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -34,6 +35,14 @@ const nextConfig: NextConfig = {
   },
   typescript: {
     ignoreBuildErrors: true,
+  },
+  async rewrites() {
+    return [
+      {
+        source: "users/:path*",
+        destination: `${SERVER_URL}/uploads/users/:path*`,
+      },
+    ];
   },
 };
 
