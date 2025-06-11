@@ -1,3 +1,7 @@
+"use client";
+
+import ButtonWrap from "@/components/rooms/form/button-wrap";
+import Stepper from "@/components/rooms/form/stepper";
 import {
   Form,
   FormControl,
@@ -8,30 +12,62 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { FormUrl } from "@/constants/common";
 import { useRoomFormStore } from "@/hooks/store";
 import { RoomInfoFormType } from "@/type/room.type";
 import { RoomInfoFormSchema } from "@/validation/room.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import ButtonWrap from "./button-wrap";
-import Stepper from "./stepper";
 
-export default function RoomOpenInfo({
-  defaultValues,
-}: {
-  defaultValues: RoomInfoFormType;
-}) {
-  const { roomForm, setRoomForm, setStep } = useRoomFormStore();
+export default function RoomRegisterInfo() {
+  const router = useRouter();
+  const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
+  const { roomForm, setRoomForm } = useRoomFormStore();
+
   const form = useForm<RoomInfoFormType>({
     resolver: zodResolver(RoomInfoFormSchema),
-    defaultValues,
+    defaultValues: {
+      title: roomForm.title || "",
+      description: roomForm.description || "",
+      price: roomForm.price || 0,
+      bedroomDescription: roomForm.bedroomDescription || "",
+    },
   });
+
+  const onSubmit = (data: RoomInfoFormType) => {
+    setRoomForm({
+      ...roomForm,
+      title: data.title || "",
+      description: data.description || "",
+      bedroomDescription: data.bedroomDescription,
+      price: data.price || 0,
+    });
+    router.push(FormUrl.ADDRESS);
+  };
+
+  useEffect(() => {
+    if (roomForm) {
+      form.setValue("bedroomDescription", roomForm?.bedroomDescription);
+      form.setValue("title", roomForm?.title);
+      form.setValue("price", roomForm?.price);
+      form.setValue("description", roomForm?.description);
+    }
+  }, [roomForm, form.setValue]);
+
+  useEffect(() => {
+    router.prefetch(FormUrl.ADDRESS);
+  }, [router]);
 
   return (
     <>
       <Stepper count={2} />
       <Form {...form}>
-        <form className="mt-8 flex flex-col gap-6 px-4">
+        <form
+          className="mt-8 flex flex-col gap-6 px-4"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
           <h1 className="font-semibold text-lg md:text-2xl text-center">
             숙소의 기본 정보를 입력해주세요
           </h1>
@@ -123,20 +159,9 @@ export default function RoomOpenInfo({
             />
           </div>
           <ButtonWrap
-            prevOnClick={() => setStep(1)}
-            nextOnClick={async () => {
-              const submit = await form.trigger();
-              if (submit) {
-                setRoomForm({
-                  ...roomForm,
-                  ...form.getValues(),
-                });
-                setStep(3);
-              }
-            }}
-            nextDisabled={
-              !form.formState.isValid || form.formState.isSubmitting
-            }
+            prevOnClick={() => router.push(FormUrl.CATEGORY)}
+            nextType="submit"
+            nextDisabled={disableSubmit}
           />
         </form>
       </Form>

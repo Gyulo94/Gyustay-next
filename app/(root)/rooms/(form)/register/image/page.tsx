@@ -1,22 +1,23 @@
+"use client";
+
 import { imageUpload } from "@/actions/file.actions";
+import ButtonWrap from "@/components/rooms/form/button-wrap";
+import Stepper from "@/components/rooms/form/stepper";
+import { FormUrl } from "@/constants/common";
+import { useCreateRoom } from "@/hooks/query/use-room";
 import { useRoomFormStore } from "@/hooks/store";
-import { RoomFormType } from "@/type/room.type";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { AiFillCamera } from "react-icons/ai";
 import { toast } from "sonner";
-import ButtonWrap from "./button-wrap";
-import Stepper from "./stepper";
 
-interface Props {
-  defaultImages?: string[];
-  onSubmit: (roomForm: RoomFormType) => void;
-}
-
-export default function RoomOpenImage({ defaultImages, onSubmit }: Props) {
-  const { roomForm, setRoomForm, setStep } = useRoomFormStore();
+export default function RoomRegisterImage() {
+  const { roomForm, setRoomForm } = useRoomFormStore();
+  const router = useRouter();
   const [images, setImages] = useState<string[]>([]);
+  const createRoom = useCreateRoom();
   const onDrop = useCallback(
     async (acceptedFiles: File[]) => {
       if (images.length + acceptedFiles.length > 6) {
@@ -43,22 +44,11 @@ export default function RoomOpenImage({ defaultImages, onSubmit }: Props) {
   const handleImageRemove = (index: number) => {
     setImages((prev) => prev.filter((_, i) => i !== index));
   };
-
   useEffect(() => {
-    if (
-      defaultImages &&
-      Array.isArray(defaultImages) &&
-      defaultImages.length > 0 &&
-      images.length === 0
-    ) {
-      const urls = defaultImages.map((img) => img);
-      setImages(urls);
-      setRoomForm({
-        ...roomForm,
-        images: urls,
-      });
+    if (roomForm?.images && roomForm.images.length > 0 && images.length === 0) {
+      setImages(roomForm.images);
     }
-  }, [defaultImages, images.length, roomForm, setRoomForm]);
+  }, [roomForm, images.length]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
@@ -71,7 +61,7 @@ export default function RoomOpenImage({ defaultImages, onSubmit }: Props) {
       toast.error("최소 1장의 사진을 업로드해야 합니다.");
       return;
     }
-    onSubmit(roomForm);
+    createRoom.mutate(roomForm);
   }
   return (
     <>
@@ -140,7 +130,7 @@ export default function RoomOpenImage({ defaultImages, onSubmit }: Props) {
           ))}
       </div>
       <ButtonWrap
-        prevOnClick={() => setStep(4)}
+        prevOnClick={() => router.push(FormUrl.FEATURE)}
         nextDisabled={images.length < 1}
         nextText="완료"
         nextOnClick={handleSubmit}

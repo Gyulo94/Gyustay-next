@@ -2,6 +2,7 @@ import { DetailFilterType, FilterProps } from "@/type/index.type";
 import { RoomFormType } from "@/type/room.type";
 import { differenceInDays } from "date-fns";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface DetailFilterStore {
   detailFilter: null | DetailFilterType;
@@ -49,39 +50,46 @@ export function useCalculatedFilterState() {
   return { guestCount, dayCount };
 }
 
+const ROOM_FORM_INITIAL: RoomFormType = {
+  images: [],
+  title: "",
+  address: "",
+  description: "",
+  bedroomDescription: "",
+  price: 0,
+  categoryId: "",
+  lat: "",
+  lng: "",
+  freeCancel: false,
+  selfCheckIn: false,
+  officeSpace: false,
+  hasMountainsView: false,
+  hasShampoo: false,
+  hasFreeLaundry: false,
+  hasAirConditioner: false,
+  hasWifi: false,
+  hasBarbeque: false,
+  hasFreeParking: false,
+};
+
 interface RoomFormStore {
-  step: number;
-  setStep: (step: number) => void;
   roomForm: RoomFormType;
   setRoomForm: (form: RoomFormType) => void;
+  resetRoomForm: () => void; // 추가
 }
 
-export const useRoomFormStore = create<RoomFormStore>((set) => ({
-  step: 1,
-  roomForm: {
-    images: [],
-    title: "",
-    address: "",
-    description: "",
-    bedroomDescription: "",
-    price: 0,
-    categoryId: "",
-    lat: "",
-    lng: "",
-    freeCancel: false,
-    selfCheckIn: false,
-    officeSpace: false,
-    hasMountainsView: false,
-    hasShampoo: false,
-    hasFreeLaundry: false,
-    hasAirConditioner: false,
-    hasWifi: false,
-    hasBarbeque: false,
-    hasFreeParking: false,
-  },
-  setStep: (step) => set({ step }),
-  setRoomForm: (form) => set({ roomForm: form }),
-}));
+export const useRoomFormStore = create<RoomFormStore>()(
+  persist(
+    (set) => ({
+      roomForm: { ...ROOM_FORM_INITIAL },
+      setRoomForm: (form) => set({ roomForm: form }),
+      resetRoomForm: () => set({ roomForm: { ...ROOM_FORM_INITIAL } }),
+    }),
+    {
+      name: "room-form-storage",
+    }
+  )
+);
 
 interface SearchStore {
   q?: string;

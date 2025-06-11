@@ -22,7 +22,7 @@ export default function ButtonWrap({
   nextType = "button",
 }: Props) {
   return (
-    <div className="fixed bottom-10 inset-x-0 flex justify-center gap-4">
+    <div className="fixed bottom-20 inset-x-0 flex justify-center gap-4">
       <Button
         type={prevType}
         onClick={prevOnClick}

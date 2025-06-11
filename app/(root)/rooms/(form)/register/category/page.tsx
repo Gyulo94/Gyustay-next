@@ -1,21 +1,39 @@
 "use client";
 
+import ButtonWrap from "@/components/rooms/form/button-wrap";
+import Stepper from "@/components/rooms/form/stepper";
 import { categories } from "@/constants/categories";
+import { FormUrl } from "@/constants/common";
 import { useRoomFormStore } from "@/hooks/store";
 import { cn } from "@/lib/utils";
-import ButtonWrap from "./button-wrap";
-import Stepper from "./stepper";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
-export default function RoomOpenCategory() {
-  const { roomForm, setRoomForm, setStep } = useRoomFormStore();
-  const handleCategoryClick = (id: string) => {
-    setRoomForm({ ...roomForm, categoryId: id });
+export default function RoomRegisterCategory() {
+  const router = useRouter();
+  const { roomForm, setRoomForm } = useRoomFormStore();
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
+
+  const handleSubmit = () => {
+    setRoomForm({
+      ...roomForm,
+      categoryId: selectedCategory,
+    });
+    router.push(FormUrl.INFO);
   };
-  const currentCategoryIdInStore = roomForm.categoryId;
+
+  useEffect(() => {
+    setSelectedCategory(roomForm?.categoryId || "");
+  }, [roomForm]);
+
+  useEffect(() => {
+    router.prefetch(FormUrl.INFO);
+  }, [router]);
 
   return (
     <>
-      <Stepper count={1} className="mt-10" />
+      <Stepper count={1} />
       <section className="mb-20 md:mb-0 mt-10 flex flex-col gap-4">
         <h1 className="font-semibold text-lg md:text-2xl text-center">
           다음 중 숙소를 가장 잘 나타내는 것은 무엇인가요?
@@ -25,14 +43,13 @@ export default function RoomOpenCategory() {
             <button
               type="button"
               key={category.label}
-              onClick={() => handleCategoryClick(category.id)}
+              onClick={() => setSelectedCategory(category.id)}
               className={cn(
                 "hover:bg-purple-50 rounded-md px-6 py-4 flex flex-col gap-2 cursor-pointer",
                 {
-                  "border-2 border-primary":
-                    currentCategoryIdInStore === category.id,
+                  "border-2 border-primary": selectedCategory === category.id,
                   "border-2 border-purple-300":
-                    currentCategoryIdInStore !== category.id,
+                    selectedCategory !== category.id,
                 }
               )}
             >
@@ -48,8 +65,8 @@ export default function RoomOpenCategory() {
       </section>
       <ButtonWrap
         prevDisabled
-        nextDisabled={!currentCategoryIdInStore}
-        nextOnClick={() => setStep(2)}
+        nextDisabled={!selectedCategory || disableSubmit}
+        nextOnClick={handleSubmit}
       />
     </>
   );

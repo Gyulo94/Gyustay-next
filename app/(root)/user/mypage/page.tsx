@@ -42,8 +42,8 @@ export default function MyPage() {
               </h2>
             </div>
           </Link>
-          <div
-            onClick={onOpen}
+          <Link
+            href={"/rooms/register/category"}
             className="shadow-lg rounded-lg flex flex-col justify-between p-4 gap-12 hover:shadow-xl cursor-pointer"
           >
             <BsHouseAdd className="text-xl md:text-3xl" />
@@ -51,7 +51,7 @@ export default function MyPage() {
               <h1 className="font-semibold">숙소 등록</h1>
               <h2 className="text-sm text-gray-500">나의 숙소 등록하기</h2>
             </div>
-          </div>
+          </Link>
           <Link
             href={"/user/rooms"}
             className="shadow-lg rounded-lg flex flex-col justify-between p-4 gap-12 hover:shadow-xl"

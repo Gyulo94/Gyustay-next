@@ -48,12 +48,12 @@ export default function UserMenu({ session }: { session: Session | null }) {
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
         {status === "authenticated" ? (
-          <button
-            onClick={onOpen}
+          <Link
+            href={"/rooms/register/category"}
             className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
           >
             당신의 공간을 등록해주세요
-          </button>
+          </Link>
         ) : (
           <Link
             href={"/login"}

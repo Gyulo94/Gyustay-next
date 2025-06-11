@@ -92,3 +92,11 @@ export const ROOM_FEATURE = [
     icon: LuCircleParking,
   },
 ];
+
+export const FormUrl = {
+  CATEGORY: "/rooms/register/category",
+  INFO: "/rooms/register/info",
+  ADDRESS: "/rooms/register/address",
+  FEATURE: "/rooms/register/feature",
+  IMAGE: "/rooms/register/image",
+};

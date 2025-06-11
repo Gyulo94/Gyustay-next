@@ -50,6 +50,8 @@ export async function findRoomById(id?: string, userId?: string) {
 export async function createRoom(values: RoomFormType) {
   const session = await auth();
   const token = session?.serverTokens.accessToken;
+  console.log("createRoom values:", values);
+
   const headers = {
     Authorization: `KakaoAK ${process.env.KAKAO_REST_API_KEY}`,
   };

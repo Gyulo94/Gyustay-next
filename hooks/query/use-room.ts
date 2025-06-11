@@ -18,7 +18,6 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useRoomFormStore } from "../store";
-import { useRoomUpdateDialogStore } from "../store/modal.store";
 
 export const useFindRoomsAll = ({
   category,
@@ -57,12 +56,14 @@ export const useFindRoomById = (id?: string) => {
 };
 
 export function useCreateRoom() {
+  const { resetRoomForm } = useRoomFormStore();
   const queryClient = useQueryClient();
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: (values: RoomFormType) => createRoom(values),
     onSuccess: (data) => {
       toast.success(data.message);
+      resetRoomForm();
       queryClient.invalidateQueries({ queryKey: ["rooms"] });
       router.push(`/rooms/${data.body.id}`);
     },
@@ -92,37 +93,12 @@ export function useFindRoomsByUserId({
 }
 
 export function useUpdateRoom(id?: string) {
-  const { onClose } = useRoomUpdateDialogStore();
-  const { setStep, setRoomForm } = useRoomFormStore();
   const queryClient = useQueryClient();
   const router = useRouter();
   const mutation = useMutation({
     mutationFn: (values: RoomFormType) => updateRoom(values, id),
     onSuccess: (data) => {
       toast.success(data.message);
-      onClose();
-      setStep(1);
-      setRoomForm({
-        address: "",
-        bedroomDescription: "",
-        categoryId: "",
-        description: "",
-        freeCancel: false,
-        hasAirConditioner: false,
-        hasBarbeque: false,
-        hasFreeLaundry: false,
-        hasFreeParking: false,
-        hasMountainsView: false,
-        hasShampoo: false,
-        hasWifi: false,
-        images: [],
-        lat: "",
-        lng: "",
-        officeSpace: false,
-        price: 0,
-        selfCheckIn: false,
-        title: "",
-      });
       queryClient.invalidateQueries({ queryKey: ["rooms"] });
       queryClient.invalidateQueries({ queryKey: ["room", { id }] });
       router.push(`/rooms/${data.body.id}`);

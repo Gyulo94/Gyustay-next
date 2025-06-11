@@ -10,18 +10,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useDeleteRoom, useFindRoomsByUserId } from "@/hooks/query/use-room";
 import { useSearchStore } from "@/hooks/store";
-import { useRoomUpdateDialogStore } from "@/hooks/store/modal.store";
 import { useConfirm } from "@/hooks/use-confirm";
 import { currencyPrice } from "@/lib/utils";
 import { RoomType } from "@/type/room.type";
 import { format } from "date-fns";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Fragment, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useInView } from "react-intersection-observer";
 
 export default function MyRoomsPage() {
-  const { onOpen } = useRoomUpdateDialogStore();
+  const router = useRouter();
   const { q } = useSearchStore();
   const [ConfirmDialog, confirm] = useConfirm(
     "정말로 삭제하시겠습니까?",
@@ -122,7 +122,9 @@ export default function MyRoomsPage() {
                         </td>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent>
-                        <DropdownMenuItem onClick={() => onOpen(room.id)}>
+                        <DropdownMenuItem
+                          onClick={() => router.push(`/rooms/edit/${room.id}`)}
+                        >
                           수정
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={() => handleDelete(room.id)}>

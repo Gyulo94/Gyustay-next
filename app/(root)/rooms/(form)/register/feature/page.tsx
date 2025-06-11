@@ -1,45 +1,66 @@
+"use client";
+
+import ButtonWrap from "@/components/rooms/form/button-wrap";
+import Stepper from "@/components/rooms/form/stepper";
 import { Form, FormField } from "@/components/ui/form";
-import { ROOM_FEATURE } from "@/constants/common";
+import { FormUrl, ROOM_FEATURE } from "@/constants/common";
 import { useRoomFormStore } from "@/hooks/store";
 import { cn } from "@/lib/utils";
 import { RoomFeatureFormType } from "@/type/room.type";
 import { RoomFeatureFormSchema } from "@/validation/room.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import ButtonWrap from "./button-wrap";
-import Stepper from "./stepper";
 
-export default function RoomOpenFeature({
-  defaultValues,
-}: {
-  defaultValues: RoomFeatureFormType;
-}) {
-  const { roomForm, setRoomForm, setStep } = useRoomFormStore();
+export default function RoomRegisterFeature() {
+  const { roomForm, setRoomForm } = useRoomFormStore();
+  const router = useRouter();
   const form = useForm<RoomFeatureFormType>({
     resolver: zodResolver(RoomFeatureFormSchema),
-    defaultValues,
+    defaultValues: {
+      freeCancel: roomForm.freeCancel || false,
+      selfCheckIn: roomForm.selfCheckIn || false,
+      officeSpace: roomForm.officeSpace || false,
+      hasMountainsView: roomForm.hasMountainsView || false,
+      hasShampoo: roomForm.hasShampoo || false,
+      hasFreeLaundry: roomForm.hasFreeLaundry || false,
+      hasAirConditioner: roomForm.hasAirConditioner || false,
+      hasWifi: roomForm.hasWifi || false,
+      hasBarbeque: roomForm.hasBarbeque || false,
+      hasFreeParking: roomForm.hasFreeParking || false,
+    },
   });
 
   useEffect(() => {
-    if (roomForm) {
-      form.setValue("freeCancel", roomForm.freeCancel || false);
-      form.setValue("selfCheckIn", roomForm.selfCheckIn || false);
-      form.setValue("officeSpace", roomForm.officeSpace || false);
-      form.setValue("hasMountainsView", roomForm.hasMountainsView || false);
-      form.setValue("hasShampoo", roomForm.hasShampoo || false);
-      form.setValue("hasFreeLaundry", roomForm.hasFreeLaundry || false);
-      form.setValue("hasAirConditioner", roomForm.hasAirConditioner || false);
-      form.setValue("hasWifi", roomForm.hasWifi || false);
-      form.setValue("hasBarbeque", roomForm.hasBarbeque || false);
-      form.setValue("hasFreeParking", roomForm.hasFreeParking || false);
-    }
-  }, [roomForm, form.setValue, form]);
+    router.prefetch(FormUrl.IMAGE);
+  }, [router]);
+
+  const onSubmit = (data: RoomFeatureFormType) => {
+    setRoomForm({
+      ...roomForm,
+      freeCancel: data.freeCancel || false,
+      selfCheckIn: data.selfCheckIn || false,
+      officeSpace: data.officeSpace || false,
+      hasMountainsView: data.hasMountainsView || false,
+      hasShampoo: data.hasShampoo || false,
+      hasFreeLaundry: data.hasFreeLaundry || false,
+      hasAirConditioner: data.hasAirConditioner || false,
+      hasWifi: data.hasWifi || false,
+      hasBarbeque: data.hasBarbeque || false,
+      hasFreeParking: data.hasFreeParking || false,
+    });
+    router.push(FormUrl.IMAGE);
+  };
+
   return (
     <>
       <Stepper count={4} />
       <Form {...form}>
-        <form className="mt-8 flex flex-col gap-6 px-4">
+        <form
+          className="mt-8 flex flex-col gap-6 px-4"
+          onSubmit={form.handleSubmit(onSubmit)}
+        >
           <h1 className="font-semibold text-lg md:text-2xl text-center">
             숙소의 편의시설 정보를 추가해주세요.
           </h1>
@@ -75,17 +96,8 @@ export default function RoomOpenFeature({
             ))}
           </section>
           <ButtonWrap
-            prevOnClick={() => setStep(3)}
-            nextOnClick={async () => {
-              const submit = await form.trigger();
-              if (submit) {
-                setRoomForm({
-                  ...roomForm,
-                  ...form.getValues(),
-                });
-                setStep(5);
-              }
-            }}
+            prevOnClick={() => router.push(FormUrl.ADDRESS)}
+            nextType="submit"
             nextDisabled={
               !form.formState.isValid || form.formState.isSubmitting
             }
