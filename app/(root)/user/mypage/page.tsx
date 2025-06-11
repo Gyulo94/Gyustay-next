@@ -1,8 +1,5 @@
-"use client";
-
+import { auth } from "@/auth";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { useRoomRegisterDialogStore } from "@/hooks/store/modal.store";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
 import {
   AiOutlineComment,
@@ -11,9 +8,8 @@ import {
 } from "react-icons/ai";
 import { BsBookmark, BsHouseAdd, BsHouseCheck } from "react-icons/bs";
 
-export default function MyPage() {
-  const { data: session } = useSession();
-  const { onOpen } = useRoomRegisterDialogStore();
+export default async function MyPage() {
+  const session = await auth();
 
   return (
     <div className="max-w-5xl md:h-[calc(100vh-52.8px-84.4px)] mx-auto px-4 flex items-center">

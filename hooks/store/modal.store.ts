@@ -72,32 +72,3 @@ export const useCommentEditDialogStore = create<CommentEditDialogStore>(
     commentId: undefined,
   })
 );
-
-interface RoomRegisterDialogStore {
-  isOpen: boolean;
-  onOpen: () => void;
-  onClose: () => void;
-}
-
-export const useRoomRegisterDialogStore = create<RoomRegisterDialogStore>(
-  (set) => ({
-    isOpen: false,
-    onOpen: () => set({ isOpen: true }),
-    onClose: () => set({ isOpen: false }),
-  })
-);
-
-interface RoomUpdateDialogStore {
-  isOpen: boolean;
-  onOpen: (roomId: string) => void;
-  onClose: () => void;
-  roomId?: string;
-}
-export const useRoomUpdateDialogStore = create<RoomUpdateDialogStore>(
-  (set) => ({
-    isOpen: false,
-    onOpen: (roomId) => set({ isOpen: true, roomId }),
-    onClose: () => set({ isOpen: false }),
-    roomId: undefined,
-  })
-);

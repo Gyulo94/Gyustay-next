@@ -7,7 +7,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useRoomRegisterDialogStore } from "@/hooks/store/modal.store";
 
 import { Session } from "next-auth";
 import { signOut, useSession } from "next-auth/react";
@@ -17,7 +16,6 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { LuUserRound } from "react-icons/lu";
 
 export default function UserMenu({ session }: { session: Session | null }) {
-  const { onOpen } = useRoomRegisterDialogStore();
   // console.log("isOpen:", isOpen);
 
   const { status } = useSession();

@@ -13,7 +13,7 @@ export default function RoomRegisterCategory() {
   const router = useRouter();
   const { roomForm, setRoomForm } = useRoomFormStore();
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
+  const [disableSubmit] = useState<boolean>(false);
 
   const handleSubmit = () => {
     setRoomForm({

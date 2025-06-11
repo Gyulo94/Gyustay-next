@@ -23,7 +23,7 @@ import { useForm } from "react-hook-form";
 
 export default function RoomRegisterInfo() {
   const router = useRouter();
-  const [disableSubmit, setDisableSubmit] = useState<boolean>(false);
+  const [disableSubmit] = useState<boolean>(false);
   const { roomForm, setRoomForm } = useRoomFormStore();
 
   const form = useForm<RoomInfoFormType>({

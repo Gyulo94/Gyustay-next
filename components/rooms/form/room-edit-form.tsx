@@ -44,7 +44,7 @@ export default function RoomEditForm({ room }: { room: RoomType }) {
       ? room.images.map((img) => (typeof img === "string" ? img : img.url))
       : []
   );
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [isSubmitting] = useState<boolean>(false);
   const updateRoom = useUpdateRoom(room.id);
 
   const handleImageRemove = (index: number) => {
