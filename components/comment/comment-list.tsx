@@ -35,14 +35,8 @@ export default function CommentList({ comments, isLoading, roomId }: Props) {
                   alt="profile img"
                   width={50}
                   height={50}
-                  className="rounded-full"
+                  className="rounded-full shadow object-center object-cover"
                 />
-                {/* <Avatar className="size-12">
-                  <AvatarImage
-                    className="object-center object-cover"
-                    src={comment.user.image || "/images/user-icon.png"}
-                  />
-                </Avatar> */}
                 <div>
                   <h1 className="font-semibold">
                     {comment?.user?.name || "-"}

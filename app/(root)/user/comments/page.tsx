@@ -1,7 +1,6 @@
 "use client";
 
 import { Loader } from "@/components/shared/loader";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenuContent,
   DropdownMenuItem,
@@ -16,6 +15,7 @@ import { useConfirm } from "@/hooks/use-confirm";
 import { CommentType } from "@/type/comment.type";
 import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import { format } from "date-fns";
+import Image from "next/image";
 import { Fragment, useEffect } from "react";
 import { BiChevronRight } from "react-icons/bi";
 import { BsThreeDotsVertical } from "react-icons/bs";
@@ -70,16 +70,22 @@ export default function CommentPage() {
             <Fragment key={index}>
               {page.data.map((comment: CommentType) => (
                 <div key={comment.id} className="flex flex-col gap-2">
-                  <Avatar className="size-12 shadow">
-                    <AvatarImage
-                      src={comment.user.image}
-                      alt={comment.user.name}
+                  <div className="flex gap-2 items-center">
+                    <Image
+                      src={comment?.user?.image || "/images/user-icon.png"}
+                      alt="profile img"
+                      width={50}
+                      height={50}
+                      className="rounded-full shadow object-center object-cover"
                     />
-                  </Avatar>
-                  <h1 className="font-semibold">{comment.user.name}</h1>
-                  <div className="text-gray-500 text-xs">
-                    {" "}
-                    {format(new Date(comment.createdAt), "yyyy-MM-dd HH:mm")}
+                    <div>
+                      <h1 className="font-semibold">
+                        {comment?.user?.name || "-"}
+                      </h1>
+                      <div className="text-gray-500 text-xs">
+                        {format(comment?.createdAt, "yyyy-MM-dd HH:mm")}
+                      </div>
+                    </div>
                   </div>
                   <div className="flex justify-between">
                     <div className="max-w-lg text-gray-600">

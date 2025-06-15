@@ -58,7 +58,7 @@ export default function CommentsListDialog() {
                         alt="profile img"
                         width={50}
                         height={50}
-                        className="rounded-full"
+                        className="rounded-full shadow object-center object-cover"
                       />
                       <div>
                         <h1 className="font-semibold">
