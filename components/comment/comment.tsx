@@ -27,7 +27,7 @@ export default function Comment({ room, session }: Props) {
   return (
     <div className="border-b border-gray-300 py-8 px-4">
       <CommentList comments={comments} isLoading={isLoading} roomId={room.id} />
-      {session && (
+      {session && session.user && (
         <CommentForm
           onSubmit={onSubmit}
           disabled={createComment.isPending}

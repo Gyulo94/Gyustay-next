@@ -8,7 +8,7 @@ export default async function UserInfoPage() {
   const user: UserType = await getMe();
 
   return (
-    <div className="mt-10 max-w-3xl h-[77vh] md:h-[80vh] mx-auto px-4 md:pt-15">
+    <div className="mt-10 max-w-3xl h-[77vh] md:h-[calc(100vh-84.7px-52.9px-40px)] mx-auto px-4 md:pt-15">
       <div className="flex justify-between gap-4">
         <h1 className="text-3xl font-semibold">유저 정보</h1>
         <Link href={"/user/edit"}>
