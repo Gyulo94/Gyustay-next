@@ -12,7 +12,7 @@ export default async function MyPage() {
   const session = await auth();
 
   return (
-    <div className="max-w-5xl md:h-[calc(100vh-52.8px-84.4px)] mx-auto px-4 flex items-center">
+    <div className="max-w-5xl md:h-[calc(100vh-52.9px-84.7px)] mx-auto px-4 flex items-center">
       <div className="my-auto w-full">
         <h1 className="text-3xl font-semibold">계정</h1>
         <div className="flex gap-2 mt-2 text-lg">

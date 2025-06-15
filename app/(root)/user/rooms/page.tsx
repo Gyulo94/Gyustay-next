@@ -57,7 +57,7 @@ export default function MyRoomsPage() {
   return (
     <>
       <ConfirmDialog />
-      <div className="mt-10 mb-40 max-w-7xl mx-auto min-h-[calc(100vh-252.8px-84.4px)] overflow-auto px-4">
+      <div className="mt-10 mb-40 max-w-7xl mx-auto min-h-[calc(100vh-252.9px-84.7px)] overflow-auto px-4">
         <h1 className="mb-10 text-lg md:text-2xl font-semibold">
           나의 숙소 관리
         </h1>

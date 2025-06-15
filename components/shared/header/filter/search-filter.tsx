@@ -27,27 +27,43 @@ const LocationFilter = () => {
       isShow={detailFilter === "location"}
     >
       <div className="flex flex-wrap gap-4 mt-4">
-        {["서울", "경기", "부산", "대구", "인천", "광주", "대전", "울산"].map(
-          (value) => (
-            <button
-              key={value}
-              type="button"
-              data-cy={`filter-location-${value}`}
-              className={cn(
-                "border rounded-lg px-5 py-2.5 hover:bg-gray-200 focus:bg-primary focus:text-white",
-                {
-                  "bg-primary text-white": filterValue.location === value,
-                }
-              )}
-              onClick={() => {
-                setFilterValue({ ...filterValue, location: value });
-                setDetailFilter("checkIn");
-              }}
-            >
-              {value}
-            </button>
-          )
-        )}
+        {[
+          "서울",
+          "인천",
+          "경기",
+          "강원",
+          "대전",
+          "세종",
+          "충북",
+          "충남",
+          "전북",
+          "전남",
+          "광주",
+          "경북",
+          "경남",
+          "대구",
+          "울산",
+          "부산",
+          "제주",
+        ].map((value) => (
+          <button
+            key={value}
+            type="button"
+            data-cy={`filter-location-${value}`}
+            className={cn(
+              "border rounded-lg px-5 py-2.5 hover:bg-gray-200 focus:bg-primary focus:text-white",
+              {
+                "bg-primary text-white": filterValue.location === value,
+              }
+            )}
+            onClick={() => {
+              setFilterValue({ ...filterValue, location: value });
+              setDetailFilter("checkIn");
+            }}
+          >
+            {value}
+          </button>
+        ))}
         <button
           className={cn(
             "border rounded-lg px-5 py-2.5 hover:bg-gray-200 focus:bg-primary focus:text-white",
