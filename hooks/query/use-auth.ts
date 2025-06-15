@@ -2,6 +2,7 @@
 import {
   checkVerifyToken,
   login,
+  logOut,
   resetPassword,
   sendEmail,
   signup,
@@ -65,6 +66,23 @@ export const useSendMail = () => {
 export const useResetPassword = () => {
   const mutation = useMutation({
     mutationFn: resetPassword,
+  });
+  return mutation;
+};
+
+export const useLogOut = () => {
+  const router = useRouter();
+  const mutation = useMutation({
+    mutationFn: () => logOut(),
+    onSuccess: (data) => {
+      toast.success(data.message);
+      router.push("/login");
+    },
+    onError: (error) => {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    },
   });
   return mutation;
 };

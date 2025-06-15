@@ -6,9 +6,9 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useLogOut } from "@/hooks/query/use-auth";
 
 import { Session } from "next-auth";
-import { signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -16,7 +16,7 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { LuUserRound } from "react-icons/lu";
 
 export default function UserMenu({ session }: { session: Session | null }) {
-  // console.log("isOpen:", isOpen);
+  const logOut = useLogOut();
   const publicRoute = [
     {
       label: "로그인",
@@ -90,7 +90,7 @@ export default function UserMenu({ session }: { session: Session | null }) {
                   <DropdownMenuItem
                     onClick={() => {
                       router.push(item.href);
-                      if (item.signOut) signOut();
+                      if (item.signOut) logOut.mutate(undefined);
                     }}
                     key={item.label}
                   >

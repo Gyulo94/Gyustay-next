@@ -10,15 +10,15 @@ async function refreshToken(token: JWT): Promise<JWT> {
   try {
     const response = await axios.post(
       `${SERVER_URL}/auth/refresh`,
-      {},
+      {
+        oldRefreshToken: token.serverTokens.refreshToken,
+      },
       {
         headers: {
           authorization: `Refresh ${token.serverTokens.refreshToken}`,
         },
       }
     );
-
-    // console.log("refrershed");
 
     const newRefreshToken = await response.data.body;
 
@@ -27,7 +27,7 @@ async function refreshToken(token: JWT): Promise<JWT> {
       serverTokens: newRefreshToken,
     };
   } catch (error) {
-    console.error("Failed to refresh token", error);
+    await signOut();
     return { ...token, error: "RefreshToken Error", user: token.user || null };
   }
 }
@@ -154,6 +154,17 @@ export const config = {
       session.serverTokens = token.serverTokens;
 
       return session;
+    },
+  },
+  events: {
+    async signOut({ token }: any) {
+      try {
+        await axios.post(`${SERVER_URL}/auth/logout`, {
+          userId: token.user.id,
+        });
+      } catch (error) {
+        console.error("Logout error:", error);
+      }
     },
   },
 } satisfies NextAuthConfig;

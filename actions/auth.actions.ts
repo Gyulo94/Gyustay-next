@@ -1,6 +1,6 @@
 "use server";
 
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { SERVER_URL } from "@/constants/common";
 import {
   LoginFormType,
@@ -77,4 +77,17 @@ export async function login(value: LoginFormType) {
     password: data.password,
     redirect: false,
   });
+}
+
+export async function logOut() {
+  try {
+    await signOut({ redirect: false });
+    return { message: "로그아웃 되었습니다." };
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message = error.response?.data?.message;
+      throw new Error(message);
+    }
+    throw error;
+  }
 }
