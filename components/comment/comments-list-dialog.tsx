@@ -53,13 +53,18 @@ export default function CommentsListDialog() {
                 {page?.data?.map((comment: CommentType) => (
                   <div key={comment?.id} className="flex flex-col gap-2">
                     <div className="flex gap-2 items-center">
-                      <Image
-                        src={comment?.user?.image || "/images/user-icon.png"}
-                        alt="profile img"
-                        width={50}
-                        height={50}
-                        className="rounded-full shadow object-center object-cover"
-                      />
+                      <div className="relative overflow-hidden size-[48px] rounded-full shadow">
+                        <Image
+                          src={
+                            comment.user.image
+                              ? comment.user.image
+                              : "/images/noProfileImage.jpg"
+                          }
+                          alt={`Profile`}
+                          fill
+                          className="object-cover object-center"
+                        />
+                      </div>
                       <div>
                         <h1 className="font-semibold">
                           {comment?.user?.name || "-"}
